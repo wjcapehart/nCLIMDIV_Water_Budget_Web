@@ -1,0 +1,39 @@
+"0","```r
+
+  max_year = 100
+
+  return_events_for_plotting = return_events %>% 
+                                   filter(Return_Period <= max_year)
+
+
+  return_events_for_plotting = return_events_for_plotting %>%
+                                   group_by(Scenario,
+                                            Return_Period) %>%
+                                   summarize(Return_Estimate = mean(Return_Estimate))
+  
+  ggplot(data = return_events_for_plotting) +
+  
+    aes(x     = Return_Period,
+        y     = Return_Estimate,
+        color = Scenario) +
+  
+    theme_bw() +
+  
+    ggtitle(label    = \"LOCA-Dervied Extreme Events\",
+          subtitle = str_c(Division_Name,
+                           \" Climate Division, \",
+                           State_Name,
+                           sep = \"\")) + 
+  
+    xlab(label = \"Return Period (years)\") +
+    ylab(label = \"Ensemble-Mean Maximum Daily Rainfall (mm)\") +
+
+    xlim(0, max_year) +
+  
+    scale_color_manual(values = c(\"blue\", 
+                                \"green\",
+                                \"red\")) +
+  
+    geom_line()
+
+```"

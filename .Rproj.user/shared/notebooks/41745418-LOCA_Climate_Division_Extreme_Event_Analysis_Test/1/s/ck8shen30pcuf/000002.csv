@@ -1,0 +1,31 @@
+"0","```r
+
+# LOCA Data Extraction from SD Mines Thredds Server
+
+  # URL Information
+  
+  root_LOCA_URL = \"http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/LOCA_NGP/climate_divisions/\"
+
+  loca_filename = str_c(\"NGP_LOCA_nCLIMDIV_\",
+                        target_climate_zone,
+                        \".RData\",
+                        sep = \"\")
+  
+  LOCA_URL = str_c(root_LOCA_URL,
+                   loca_filename,
+                   sep = \"\")
+  
+  load(file    = url(LOCA_URL),
+       verbose = TRUE)
+```"
+"1","Loading objects:
+  loca_daily
+"
+"0","```r
+  
+  remove(LOCA_URL)
+
+  Ensembles = unique(loca_daily$Ensemble)
+  Scenarios = unique(loca_daily$Scenario)
+
+```"

@@ -1,0 +1,15 @@
+"0","```r
+
+# Yearly Maximum 
+
+  loca_period_extremes = loca_periods %>%
+    group_by(Year = year(Time),
+             Ensemble,
+             Scenario) %>%
+    summarize(tasmax_max_ann = max(tasmax),
+              tasmin_min_ann = min(tasmax),
+              pr_max_ann     = max(pr))
+
+
+
+```"

@@ -1,0 +1,40 @@
+"0","```r
+
+loca_period_histo = loca_period_extremes %>%
+                      filter(str_detect(Scenario, \"Historical\"))
+
+loca_period_rcp85 = loca_period_extremes %>%
+                      filter(str_detect(Scenario, \"8.5\"))
+
+loca_period_rcp45 = loca_period_extremes %>%
+                      filter(str_detect(Scenario, \"4.5\"))
+
+ggplot(data = loca_period_extremes) +
+  aes(x     = pr_max_ann,
+      group = Ensemble,
+      color = Scenario) +
+  
+  theme_bw() + 
+    
+  ggtitle(label    = \"LOCA-Dervied Extreme Events\",
+          subtitle = str_c(Division_Name,
+                           \" Climate Division, \",
+                           State_Name,
+                           sep = \"\")) + 
+  
+  scale_color_manual(values = c(\"blue\",       \"green\",  \"red\")) +
+  
+  ylab(label = \"Probability\")  + 
+
+  xlab(label = \"Total Annual Max Daily Precipitation (mm)\")  + 
+  
+  xlim(0, max(loca_period_extremes$pr_max_ann)) +
+  
+  geom_density(data  = loca_period_histo,
+               alpha = 0.1) +
+  geom_density(data  = loca_period_rcp45,
+               alpha = 0.1) +
+
+  geom_density(data  = loca_period_rcp85,
+               alpha = 0.1)
+```"

@@ -1,0 +1,71 @@
+"0","```r
+
+# Extreme Event Pulls
+
+#scenario = Scenarios[1]
+for (scenario in Scenarios) 
+{
+  #ensemble = Ensembles[1]
+  for (ensemble in Ensembles)
+  {
+    
+    loca_scen_ens = loca_periods %>%
+                       filter((Ensemble == ensemble),
+                              (Scenario == scenario))
+
+    
+    threshold = quantile(x     = loca_scen_ens$pr,
+                         probs = 0.95)
+    
+    fit_GP_daily = fevd(x          = loca_scen_ens$pr, 
+                        threshold  = threshold,
+                        units      = \"mm\",
+                        time.units = \"365/year\",
+                        type       = \"GP\"
+                     )
+    
+    year_return   = c( 2:100.,
+                      141.,
+                      200.,
+                      316.,
+                      500.)
+
+    
+    return_ci = ci(x             = fit_GP_daily, 
+                   return.period = year_return)
+    
+
+    if ((scenario == Scenarios[1]) & (ensemble == Ensembles[1]))
+    {
+      return_events = tibble(Ensemble           = ensemble,
+                             Scenario           = scenario,
+                             Division           = unique(loca_daily$Division),
+                             Return_Period      = year_return,
+                             Return_Estimate_05 = return_ci[,1],
+                             Return_Estimate    = return_ci[,2],
+                             Return_Estimate_95 = return_ci[,3])
+      
+    } else # first run
+    {
+      delete_me     = tibble(Ensemble           = ensemble,
+                             Scenario           = scenario,
+                             Division           = unique(loca_daily$Division),
+                             Return_Period      = year_return,
+                             Return_Estimate_05 = return_ci[,1],
+                             Return_Estimate    = return_ci[,2],
+                             Return_Estimate_95 = return_ci[,3])
+      return_events = rbind(return_events,
+                            delete_me)
+
+    } # not the first run
+
+  } # ensemble
+  
+} # scenario
+
+remove(loca_scen_ens)
+remove(threshold)
+remove(fit_GP_daily)
+remove(delete_me)
+
+```"

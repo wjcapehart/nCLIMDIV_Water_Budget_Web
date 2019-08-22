@@ -1,0 +1,54 @@
+"0","```r
+subset = return_events %>% filter(!str_detect(string  =   Scenario,
+                                              pattern = \"RCP 4.5\") &
+                                    ((Return_Period %% 2) == 0) &
+                                     (Return_Period <= 30))
+
+subset2 = subset %>% group_by(Scenario,
+                              Return_Period) %>%
+                     summarize(Median_Return_Estimate = median(Return_Estimate))
+
+subset$Return_Period = as.factor(subset$Return_Period)
+subset2$Return_Period = as.factor(subset2$Return_Period)
+
+  ggplot(data = subset) + 
+  
+    aes(x     = Return_Period,
+        y     = Return_Estimate) +
+  
+    theme_bw() +
+    
+    theme(legend.position       = c(0.02, 0.98),
+          legend.justification  = c(0.00, 1.00)) + 
+  
+    ggtitle(label    = \"LOCA-Dervied Extreme Events\",
+          subtitle = str_c(Division_Name,
+                           \" Climate Division, \",
+                           State_Name,
+                           sep = \"\")) + 
+
+    ylab(label = \"Daily Rainfall (mm)\") +
+  
+    xlab(label = \"Return Periods (years)\") +
+    labs(caption = \"LOCA Downscaled CMIP5 Analyses\") +
+  
+   scale_fill_manual(values = c( \"cyan\",  \"red\")) + 
+  
+
+    geom_split_violin(mapping = aes(x    = Return_Period,
+                                    y    = Return_Estimate,
+                                    fill = Scenario),
+                      alpha   = 0.75,
+                      trim    = FALSE,
+                      color   = NA) +
+    
+   scale_colour_manual(values = c( \"darkblue\",  \"darkred\")) + 
+
+ 
+    
+    geom_line(data = subset2,
+              mapping = aes(x = Return_Period,
+                            y = Median_Return_Estimate,
+                            group = Scenario,
+                            color = Scenario))
+```"

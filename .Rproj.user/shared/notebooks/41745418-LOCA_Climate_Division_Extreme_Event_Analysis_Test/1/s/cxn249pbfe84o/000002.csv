@@ -1,0 +1,26 @@
+"0","```r
+
+ggplot(data = loca_period_extremes) +
+  aes(x     = pr_max_ann,
+      color = Scenario) +
+  
+  theme_bw() + 
+    
+  ggtitle(label    = \"LOCA-Dervied Extreme Events\",
+          subtitle = str_c(Division_Name,
+                           \" Climate Division, \",
+                           State_Name,
+                           sep = \"\")) + 
+  
+  scale_color_manual(values = c(\"blue\", 
+                                \"green\",
+                                \"red\")) +
+  
+  ylab(label = \"Probability\")  + 
+
+  xlab(label = \"Total Annual Max Daily Precipitation (mm)\")  + 
+  
+  xlim(0, max(loca_period_extremes$pr_max_ann)) +
+  
+  geom_density()
+```"

@@ -1,0 +1,40 @@
+"0","```r
+
+# Pulling nCLIMDIV for Zone Lookup Tables
+
+  nCLIMDIV_LUT_URL = \"http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/CLASS_Examples/nCLIMDIV_LUT.csv\"
+
+  state_zone_lut = read_csv(file = url(nCLIMDIV_LUT_URL))
+```"
+"1","Parsed with column specification:
+cols(
+  Full_Zone_Code = [31mcol_character()[39m,
+  State_Name = [31mcol_character()[39m,
+  Zone_Name = [31mcol_character()[39m,
+  Center_Lon = [32mcol_double()[39m,
+  Center_Lat = [32mcol_double()[39m
+)
+"
+"0","```r
+  
+  remove(nCLIMDIV_LUT_URL)
+
+  #
+  # Create Pulldown Look-up-Tables 
+  #  
+  
+  state_zone_lut =  state_zone_lut %>% 
+      mutate(State_Code    = substring(text  = Full_Zone_Code,
+                                       first = 1,
+                                       last  = 2),
+             SubState_Code = substring(text  = Full_Zone_Code,
+                                       first = 3,
+                                       last  = 4)) %>%
+      mutate(Zone_Name_and_Code = str_c(SubState_Code,
+                                        Zone_Name,
+                                        sep = \" : \"),
+             Zones_Per_State    = max(SubState_Code) ) %>%
+      unique()
+  
+
+```"

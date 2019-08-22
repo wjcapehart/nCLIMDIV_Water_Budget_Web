@@ -1,0 +1,11 @@
+"0","```r
+
+# Select Periods
+
+  reference_period_start = 1981
+  reference_period_end   = 2005
+  
+  future_period_start    = 2036
+  future_period_end      = 2065
+
+```"

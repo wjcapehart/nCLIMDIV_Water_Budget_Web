@@ -1,0 +1,21 @@
+"0","```r
+
+# Libraries
+
+  # Tidyverse resources
+
+  library(package = \"tidyverse\") # Multiple Tidyverse Resources
+  library(package = \"lubridate\") # Date-Time Control
+  library(package = \"ggridges\")  # Ridgeline plots with ggplot2
+
+
+  # NOAA Libraries
+
+  library(package = \"rnoaa\") # NCEI  Data Retrieval Package
+
+  # NCAR Libraries
+
+  library(package = \"extRemes\") # NCEI  Data Retrieval Package
+
+
+```"

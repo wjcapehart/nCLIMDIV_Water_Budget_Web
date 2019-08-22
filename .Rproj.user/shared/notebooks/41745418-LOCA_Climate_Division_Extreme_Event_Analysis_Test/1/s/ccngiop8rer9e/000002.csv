@@ -1,0 +1,13 @@
+"0","```r
+# Period Extraction (using the zone maximum daily event)
+
+  loca_daily = loca_daily %>% 
+    mutate(Center_of_Month = as.Date(str_c(year(Time),
+                                           month(Time),
+                                           \"15\",
+                                           sep=\"-\"),
+                                     tryFormats = c(\"%Y-%m-%d\")))
+
+  loca_histo = loca_daily %>%
+    filter((year(Time) >= reference_period_start) &
+```"

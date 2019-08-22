@@ -1,0 +1,19 @@
+"0","```r
+
+  ggplot(data = return_events) +
+  
+    aes(x     = Return_Period,
+        y     = Return_Estimate,
+        color = Scenario) +
+  
+    ggtitle(label    = \"LOCA-Dervied Extreme Events\",
+          subtitle = str_c(Division_Name,
+                           \" Climate Division, \",
+                           State_Name,
+                           sep = \"\")) + 
+  
+    xlab(label = \"Return Period (years)\") +
+    ylab(label = \"Mean Maximum Daily Rainfall (mm)\") +
+
+    geom_point()
+```"
