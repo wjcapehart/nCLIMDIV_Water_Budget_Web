@@ -25,7 +25,8 @@ nCLIMDIV$State_Name = gsub(pattern     = "\u00A0",
                            x           = nCLIMDIV$State_Name, 
                            fixed       = TRUE)
 
-last_year = max(nCLIMDIV$Date[(month(nCLIMDIV$Date) == 12) & (day(nCLIMDIV$Date) == 31)])
+
+last_year = year(max(nCLIMDIV$Date[(month(nCLIMDIV$Date) == 12)]))
 
 #
 # Create Pulldown Look-up-Tables
