@@ -25,6 +25,8 @@ nCLIMDIV$State_Name = gsub(pattern     = "\u00A0",
                            x           = nCLIMDIV$State_Name, 
                            fixed       = TRUE)
 
+last_year = max(nCLIMDIV$Date[(month(nCLIMDIV$Date) == 12) & (day(nCLIMDIV$Date) == 31)])
+
 #
 # Create Pulldown Look-up-Tables
 #  
@@ -105,15 +107,15 @@ ui = fluidPage(
             sliderInput(inputId = "start_plot_year",
                         label   = "Start Year for Plotting",
                         min     = 1900,
-                        max     = 2018,
+                        max     = last_year-1,
                         value   = 2010,
                         sep     = ""),   
             
             sliderInput(inputId = "end_plot_year",
                         label   = "End Year for Plotting",
                         min     = 2010,
-                        max     = 2018,
-                        value   = 2018,
+                        max     = last_year,
+                        value   = last_year,
                         sep     = ""),  
             
             sliderInput(inputId = "soil_storage_capacity",
