@@ -150,12 +150,17 @@ ui = fluidPage(
             p("- subsequent recharge of water into the soil, and"),
             p("- soil and snowpack storage of water"),
             p("This lets us review seasonal changes in the water cycle from year to year."),
+            p("The script behind this page uses the R 'ClimClass' Package")
             
             h2("Instructions"), 
             
             p("Using the map, select the state and then the numbered region in the state from the pull-down menus"),
             p("Next, you can select the period overwhich the budget is calculated with the sliders"),
             p("The results will be shown below"),
+            h3("Reference").
+            p("Thornthwaite, C.W.; Mather, J.R. The Water Balance; Laboratory in Climatology, Johns Hopkins University: Baltimore, MD, USA,
+1955; Volume 8, pp. 1–104."),
+            p("Emanuele Eccel's R ClimClass Package. https://CRAN.R-project.org/package=ClimClass")
             h2("Budget Graph"), 
             plotOutput(outputId = "thornthwaitePlot"),
             
