@@ -150,7 +150,7 @@ ui = fluidPage(
             p("- subsequent recharge of water into the soil, and"),
             p("- soil and snowpack storage of water"),
             p("This lets us review seasonal changes in the water cycle from year to year."),
-            p("The script behind this page uses the R 'ClimClass' Package")
+            p("The script behind this page uses the R 'ClimClass' Package"),
             
             h2("Instructions"), 
             
