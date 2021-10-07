@@ -18,7 +18,8 @@ library(package = "ClimClass")
 #
 
 #load(file = url(description = "http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/CLASS_Examples/nCLIMDIV.Rdata"))
-load("/projects/THREDDS/local_academic_repo/CLASS_Examples/nCLIMDIV.Rdata")
+#load("/projects/THREDDS/local_academic_repo/CLASS_Examples/nCLIMDIV.Rdata")
+load("./nCLIMDIV.Rdata")
 
 nCLIMDIV$State_Name = gsub(pattern     = "\u00A0", 
                            replacement = "", 
