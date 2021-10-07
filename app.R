@@ -115,7 +115,7 @@ ui = fluidPage(
             
             sliderInput(inputId = "end_plot_year",
                         label   = "End Year for Plotting",
-                        min     = 2010,
+                        min     = 1901,
                         max     = last_year,
                         value   = last_year,
                         sep     = ""),  
@@ -164,6 +164,8 @@ ui = fluidPage(
             
             h2("Download Full Budget Period"),
             downloadButton('downloadData', 'Download')
+          
+            # h2("Deepdive on Thorthwaite Mather Budgets")
 
         )
     )
