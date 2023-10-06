@@ -121,7 +121,7 @@ ui = fluidPage(
                         sep     = ""),  
             
             sliderInput(inputId = "soil_storage_capacity",
-                        label   = "Soil Storage Capacity (cm)",
+                        label   = "Soil Storage Capacity (mm)",
                         min     =  50,
                         max     = 200,
                         value   = 150,
@@ -143,7 +143,7 @@ ui = fluidPage(
             
             h2("Introduction"), 
             
-            p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' an water resource accounting tool that partitions rainfall between "),
+            p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool that partitions rainfall between "),
             p("- ideal (or 'potential') evaporation,"),
             p("- actual evaporation,"),
             p("- extraction of water from the soil,"),
@@ -155,7 +155,7 @@ ui = fluidPage(
             h2("Instructions"), 
             
             p("Using the map, select the state and then the numbered region in the state from the pull-down menus"),
-            p("Next, you can select the period overwhich the budget is calculated with the sliders"),
+            p("Next, you can select the period over which the budget is calculated with the sliders"),
             p("The results will be shown below"),
             h3("References"),
             p("Thornthwaite, C.W.; Mather, J.R. The Water Balance; Laboratory in Climatology, Johns Hopkins University: Baltimore, MD, USA,
