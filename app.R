@@ -14,7 +14,7 @@ library(package = "ClimClass")
 
 
 #
-# Input Cliamte Data
+# Input Climate Data
 #
 
 #load(file = url(description = "http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/CLASS_Examples/nCLIMDIV.Rdata"))
@@ -165,7 +165,7 @@ ui = fluidPage(
             h2("Budget Graph"), 
             plotOutput(outputId = "thornthwaitePlot"),
             
-            h2("Budget Table for Full Period"),
+            h2("Budget Table for Full Period (T in °C; Water units in mm"),
             dataTableOutput(outputId = "budget_table"),
             
             h2("Download Full Budget Period"),
