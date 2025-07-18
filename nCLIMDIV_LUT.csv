@@ -1,0 +1,345 @@
+"","Full_Zone_Code","State_Name","Zone_Name","Center_Lon","Center_Lat"
+"1","0101","Alabama","North Valley",-87.26864765,34.66276236
+"2","0102","Alabama","Appalachian Mountain",-86.40687789,34.20984909
+"3","0103","Alabama","Upper Plains",-87.47729554,33.45074574
+"4","0104","Alabama","Eastern Valley",-86.13530529,33.68488515
+"5","0105","Alabama","Piedmont Plateau",-85.73747464,33.00233878
+"6","0106","Alabama","Prairie",-87.09251682,32.41803065
+"7","0107","Alabama","Coastal Plain",-87.32365752,31.94630833
+"8","0108","Alabama","Gulf",-87.93248459,30.75711354
+"9","0201","Arizona","Northwest",-113.7578808,35.70322736
+"10","0202","Arizona","Northeast",-110.766871,35.60459267
+"11","0203","Arizona","North Central",-112.5553211,34.60338926
+"12","0204","Arizona","East Central",-110.8109974,33.79872016
+"13","0205","Arizona","Southwest",-113.9408307,33.20195329
+"14","0206","Arizona","South Central",-112.072694,33.19046905
+"15","0207","Arizona","Southeast",-110.605811,32.26702814
+"16","0301","Arkansas","Northwest",-93.72871553,36.13305497
+"17","0302","Arkansas","North Central",-92.19696272,36.00280707
+"18","0303","Arkansas","Northeast",-90.91774939,35.81776051
+"19","0304","Arkansas","West Central",-93.78371444,35.1710652
+"20","0305","Arkansas","Central",-92.67425257,34.73511768
+"21","0306","Arkansas","East Central",-91.10753127,34.80637233
+"22","0307","Arkansas","Southwest",-93.853204,33.87688723
+"23","0308","Arkansas","South Central",-92.76256951,33.60035287
+"24","0309","Arkansas","Southeast",-91.6321429,33.68141235
+"25","0401","California","North Coast Drainage",-123.0615419,40.50034316
+"26","0402","California","Sacramento Drainage",-121.5698002,39.96641231
+"27","0403","California","Northeast Interior Basins",-120.0568388,39.91032338
+"28","0404","California","Central Coast Drainage",-121.3305151,36.5258347
+"29","0405","California","San Joaquin Drainage",-119.797325,36.79929702
+"30","0406","California","South Coast Drainage",-118.2284214,33.99906409
+"31","0407","California","Southeast Desert Basin",-116.5470202,34.9732298
+"32","0501","Colorado","Arkansas Drainage",-103.964702,38.1128519
+"33","0502","Colorado","Colorado Drainage",-107.7012479,39.09588737
+"34","0503","Colorado","Kansas Drainage",-102.6118032,39.77442008
+"35","0504","Colorado","Platte Drainage",-104.7190382,40.13077753
+"36","0505","Colorado","Rio Grande Drainage",-106.1211423,37.61307966
+"37","0601","Connecticut","Northwest",-73.19416288,41.80941814
+"38","0602","Connecticut","Central",-72.53874007,41.66987679
+"39","0603","Connecticut","Coastal",-72.77283112,41.28985801
+"40","0701","Delaware","Northern",-75.64705453,39.57847689
+"41","0702","Delaware","Southern",-75.45951389,38.82281562
+"42","0801","Florida","Northwest",-85.57372693,30.48902158
+"43","0802","Florida","North",-82.48907151,29.97296476
+"44","0803","Florida","North Central",-81.75687322,28.79936393
+"45","0804","Florida","South Central",-81.53623218,27.68892665
+"46","0805","Florida","Everglades and Southwest Co",-80.96922496,26.6280496
+"47","0806","Florida","Lower East Coast",-80.24654217,26.24809547
+"48","0807","Florida","Keys",-81.03725513,24.91850289
+"49","0901","Georgia","Northwest",-85.07105433,34.45504202
+"50","0902","Georgia","North Central",-84.09849593,34.25779311
+"51","0903","Georgia","Northeast",-83.09858842,34.23292868
+"52","0904","Georgia","West Central",-84.63120649,33.00003044
+"53","0905","Georgia","Central",-83.28053382,32.86801453
+"54","0906","Georgia","East Central",-82.03375575,32.87408293
+"55","0907","Georgia","Southwest",-84.48547168,31.4294125
+"56","0908","Georgia","South Central",-83.26240023,31.38799154
+"57","0909","Georgia","Southeast",-81.89610871,31.49075521
+"58","1001","Idaho","Panhandle",-116.6332867,48.22752296
+"59","1002","Idaho","North Central Prairies",-116.4455711,46.11998503
+"60","1003","Idaho","North Central Canyons",-116.2774252,46.37739865
+"61","1004","Idaho","Central Mountains",-115.3276967,45.2362587
+"62","1005","Idaho","Southwestern Valleys",-116.3006081,43.67606524
+"63","1006","Idaho","Southwestern Highlands",-115.8704723,42.46305515
+"64","1007","Idaho","Central Plains",-114.2492515,42.88445712
+"65","1008","Idaho","Northeastern Valleys",-113.5987051,44.48972214
+"66","1009","Idaho","Upper Snake River Plains",-112.7367052,43.49784869
+"67","1010","Idaho","Eastern Highlands",-111.995866,42.95279089
+"68","1101","Illinois","Northwest",-89.810288,41.78484432
+"69","1102","Illinois","Northeast",-88.36316506,41.76957127
+"70","1103","Illinois","West",-90.70172679,40.45249362
+"71","1104","Illinois","Central",-89.34306809,40.43245177
+"72","1105","Illinois","East",-88.1093111,40.55658249
+"73","1106","Illinois","West Southwest",-90.01963826,39.38385705
+"74","1107","Illinois","East Southeast",-88.33971546,39.17658545
+"75","1108","Illinois","Southwest",-89.51942275,38.02360487
+"76","1109","Illinois","Southeast",-88.52490143,37.99476099
+"77","1201","Indiana","Northwest",-87.02605091,41.13408476
+"78","1202","Indiana","North Central",-86.12574391,41.11922094
+"79","1203","Indiana","Northeast",-85.22422231,41.1743424
+"80","1204","Indiana","West Central",-87.09627135,39.84975703
+"81","1205","Indiana","Central",-86.0113674,39.86147443
+"82","1206","Indiana","East Central",-85.1572966,40.07355983
+"83","1207","Indiana","Southwest",-87.25423566,38.49492188
+"84","1208","Indiana","South Central",-86.30678276,38.63565244
+"85","1209","Indiana","Southeast",-85.34112015,38.95657801
+"86","1301","Iowa","Northwest",-95.49010728,43.02953978
+"87","1302","Iowa","North Central",-93.48173332,43.03853737
+"88","1303","Iowa","Northeast",-91.74750986,42.85467483
+"89","1304","Iowa","West Central",-95.26294364,42.04463303
+"90","1305","Iowa","Central",-93.33866671,42.04004266
+"91","1306","Iowa","East Central",-91.26352205,41.88539706
+"92","1307","Iowa","Southwest",-95.12588829,41.06644652
+"93","1308","Iowa","South Central",-93.43786483,41.0330121
+"94","1309","Iowa","Southeast",-91.78844796,41.01914019
+"95","1401","Kansas","Northwest",-100.8319966,39.56679675
+"96","1402","Kansas","North Central",-98.22506554,39.56108984
+"97","1403","Kansas","Northeast",-95.87849153,39.52354146
+"98","1404","Kansas","West Central",-100.8156889,38.69826784
+"99","1405","Kansas","Central",-98.19944856,38.66214973
+"100","1406","Kansas","East Central",-95.76095794,38.59725092
+"101","1407","Kansas","Southwest",-100.8029916,37.62936336
+"102","1408","Kansas","South Central",-98.39166277,37.61975612
+"103","1409","Kansas","Southeast",-95.90245384,37.5380631
+"104","1501","Kentucky","Western",-88.63871342,36.83802708
+"105","1502","Kentucky","Central",-85.81789589,37.351519
+"106","1503","Kentucky","Blue Grass",-84.56350767,38.23841778
+"107","1504","Kentucky","Eastern",-83.48084271,37.47882302
+"108","1601","Louisiana","Northwest",-93.63303317,32.44732109
+"109","1602","Louisiana","North Central",-92.59488691,32.42943056
+"110","1603","Louisiana","Northeast",-91.52390962,32.44620656
+"111","1604","Louisiana","West Central",-93.25328734,31.45202814
+"112","1605","Louisiana","Central",-92.16360797,31.21966606
+"113","1606","Louisiana","East Central",-90.69733598,30.65146956
+"114","1607","Louisiana","Southwest",-92.92387511,30.18963542
+"115","1608","Louisiana","South Central",-91.51565259,30.02582694
+"116","1609","Louisiana","Southeast",-89.73983934,29.89982931
+"117","1701","Maine","North",-69.29810422,46.03142149
+"118","1702","Maine","South Interior",-69.22466793,44.7379716
+"119","1703","Maine","Coastal",-69.11689512,44.05251823
+"120","1801","Maryland","Southeastern Shore",-75.91071204,38.1230223
+"121","1802","Maryland","Central Eastern Shore",-75.99389859,38.64979875
+"122","1803","Maryland","Lower Southern",-76.75677237,38.43515871
+"123","1804","Maryland","Upper Southern",-76.873667,-76.873667
+"124","1805","Maryland","Northeastern Shore",-76.03535313,39.14558111
+"125","1806","Maryland","North Central",-76.81513368,39.43529363
+"126","1807","Maryland","Appalachian Mountains",-78.23471237,39.61005293
+"127","1808","Maryland","Allegheny Plateau",-79.26882998,39.53201417
+"128","1901","Massachusetts","West",-73.07624152,42.36553791
+"129","1902","Massachusetts","Central",-71.87090946,42.36573689
+"130","1903","Massachusetts","Coastal",-70.51827982,41.63267835
+"131","2001","Michigan","West Upper",-88.43434213,46.41447993
+"132","2002","Michigan","East Upper",-85.63163814,45.94257563
+"133","2003","Michigan","Northwest Lower",-85.84068783,44.956057
+"134","2004","Michigan","Northeast Lower",-84.294246,45.30493438
+"135","2005","Michigan","West Central Lower",-86.0231123,43.68542501
+"136","2006","Michigan","Central Lower",-84.87965,43.67377131
+"137","2007","Michigan","East Central Lower",-83.42540232,43.58331389
+"138","2008","Michigan","Southwest Lower",-85.89005642,42.4775215
+"139","2009","Michigan","South Central Lower",-84.80383033,42.43693935
+"140","2010","Michigan","Southeast Lower",-83.45924493,42.54073045
+"141","2101","Minnesota","Northwest",-96.14150985,47.86704771
+"142","2102","Minnesota","North Central",-94.30706704,47.81437952
+"143","2103","Minnesota","Northeast",-91.94948234,47.65031815
+"144","2104","Minnesota","West Central",-95.89064885,45.71754804
+"145","2105","Minnesota","Central",-94.46295447,45.39224264
+"146","2106","Minnesota","East Central",-93.26928196,46.05766268
+"147","2107","Minnesota","Southwest",-95.68328654,44.05002722
+"148","2108","Minnesota","South Central",-93.96565004,44.00097909
+"149","2109","Minnesota","Southeast",-92.3725125,44.03167122
+"150","2201","Mississippi","Upper Delta",-90.51669434,34.11013791
+"151","2202","Mississippi","North Central",-89.65147661,34.39598042
+"152","2203","Mississippi","Northeast",-88.66374786,34.52143947
+"153","2204","Mississippi","Lower Delta",-90.63180288,33.14477081
+"154","2205","Mississippi","Central",-89.73188869,32.95087221
+"155","2206","Mississippi","East Central",-88.74634561,33.31507797
+"156","2207","Mississippi","Southwest",-90.81265128,31.70990128
+"157","2208","Mississippi","South Central",-89.83662649,31.52631718
+"158","2209","Mississippi","Southeast",-88.9035755,31.75646596
+"159","2210","Mississippi","Coastal",-89.11128895,30.64646605
+"160","2301","Missouri","Northwest Prairie",-93.957244,39.80008873
+"161","2302","Missouri","Northeast Prairie",-91.71437988,39.32736616
+"162","2303","Missouri","West Central Plains",-93.46782254,38.33128369
+"163","2304","Missouri","West Ozarks",-93.3571414,37.11819368
+"164","2305","Missouri","East Ozarks",-91.06401453,37.45319584
+"165","2306","Missouri","Bootheel",-89.86579133,36.65098372
+"166","2401","Montana","Western",-114.2456982,47.47512573
+"167","2402","Montana","Southwestern",-112.2802896,45.3889987
+"168","2403","Montana","North Central",-110.3533812,48.33028978
+"169","2404","Montana","Central",-110.2723674,46.93366539
+"170","2405","Montana","South Central",-108.8280264,45.6120678
+"171","2406","Montana","Northeastern",-105.8431434,47.92620947
+"172","2407","Montana","Southeastern",-105.5277548,46.07378274
+"173","2501","Nebraska","Panhandle",-103.0479472,41.99666918
+"174","2502","Nebraska","North Central",-100.2907237,42.2776482
+"175","2503","Nebraska","Northeast",-97.37496433,42.20607724
+"176","2505","Nebraska","Central",-99.2617796,41.2131237
+"177","2506","Nebraska","East Central",-97.07703906,41.17620607
+"178","2507","Nebraska","Southwest",-101.1072276,40.69092
+"179","2508","Nebraska","South Central",-99.19342614,40.33195822
+"180","2509","Nebraska","Southeast",-96.91999811,40.33887789
+"181","2601","Nevada","Northwestern",-118.6701603,40.52438592
+"182","2602","Nevada","Northeastern",-115.6165564,40.40372364
+"183","2603","Nevada","South Central",-116.3683018,38.00516246
+"184","2604","Nevada","Extreme Southern",-115.1502335,36.37374148
+"185","2701","New Hampshire","North",-71.52926572,44.4063558
+"186","2702","New Hampshire","South",-71.60284393,43.32268895
+"187","2801","New Jersey","Northern",-74.60573546,40.84182364
+"188","2802","New Jersey","Southern",-74.71450425,39.82188629
+"189","2803","New Jersey","Coastal",-74.40406353,39.55717366
+"190","2901","New Mexico","Northwestern Plateau",-108.1925276,36.05809342
+"191","2902","New Mexico","Northern Mountains",-105.6837562,36.18235193
+"192","2903","New Mexico","Northeastern Plains",-103.6579243,35.36479303
+"193","2904","New Mexico","Southwestern Mountains",-108.0203698,34.09856646
+"194","2905","New Mexico","Central Valley",-106.717727,33.93815925
+"195","2906","New Mexico","Central Highlands",-105.7444684,34.15546254
+"196","2907","New Mexico","Southeastern Plains",-104.2956744,33.41995599
+"197","2908","New Mexico","Southern Desert",-107.3461078,32.35691541
+"198","3001","New York","Western Plateau",-77.89465803,42.24660127
+"199","3002","New York","Eastern Plateau",-75.11588518,42.29867376
+"200","3003","New York","Northern Plateau",-74.68910612,43.86006104
+"201","3004","New York","Coastal",-73.06439753,40.84309759
+"202","3005","New York","Hudson Valley",-73.77800791,42.21175483
+"203","3006","New York","Mohawk Valley",-74.92383978,43.10102658
+"204","3007","New York","Champlain Valley",-73.62873038,44.26677387
+"205","3008","New York","St. Lawrence Valley",-74.87121035,44.65202849
+"206","3009","New York","Great Lakes",-77.58447463,43.16927022
+"207","3010","New York","Central Lakes",-77.04151034,42.739516
+"208","3101","North Carolina","Southern Mountains",-82.78507949,35.47655044
+"209","3102","North Carolina","Northern Mountains",-81.23714561,36.24135974
+"210","3103","North Carolina","Northern Piedmont",-79.21975856,36.23696478
+"211","3104","North Carolina","Central Piedmont",-79.96506298,35.74182216
+"212","3105","North Carolina","Southern Piedmont",-80.40619245,35.22262811
+"213","3106","North Carolina","Southern Coastal Plain",-78.44465657,34.69325103
+"214","3107","North Carolina","Central Coastal Plain",-76.60973256,34.99902276
+"215","3108","North Carolina","Northern Coastal Plain",-75.98707126,36.03712332
+"216","3201","North Dakota","Northwest",-102.5442813,48.4426034
+"217","3202","North Dakota","North Central",-100.2195576,48.41032718
+"218","3203","North Dakota","Northeast",-98.1729129,48.38970278
+"219","3204","North Dakota","West Central",-102.3345732,47.51651393
+"220","3205","North Dakota","Central",-99.42399381,47.27763172
+"221","3206","North Dakota","East Central",-97.64803396,47.15028262
+"222","3207","North Dakota","Southwest",-103.1154718,46.56072728
+"223","3208","North Dakota","South Central",-100.9481306,46.52827527
+"224","3209","North Dakota","Southeast",-98.26459016,46.28021587
+"225","3301","Ohio","Northwest",-84.12011618,41.22748165
+"226","3302","Ohio","North Central",-82.86157022,41.17144231
+"227","3303","Ohio","Northeast",-81.21105973,41.38407263
+"228","3304","Ohio","West Central",-84.11905496,40.30443842
+"229","3305","Ohio","Central",-82.99722682,40.04734761
+"230","3306","Ohio","Central Hills",-82.15488474,40.61062597
+"231","3307","Ohio","Northeast Hills",-81.07286923,40.62389044
+"232","3308","Ohio","Southwest",-84.1409872,39.37266188
+"233","3309","Ohio","South Central",-82.81121317,38.96202387
+"234","3310","Ohio","Southeast",-81.74779769,39.68974164
+"235","3401","Oklahoma","Panhandle",-100.9905192,36.67231176
+"236","3402","Oklahoma","North Central",-98.20197175,36.58157183
+"237","3403","Oklahoma","Northeast",-95.74266382,36.49726263
+"238","3404","Oklahoma","West Central",-99.14645364,35.63030896
+"239","3405","Oklahoma","Central",-97.22857811,35.53330507
+"240","3406","Oklahoma","East Central",-95.45016575,35.40481482
+"241","3407","Oklahoma","Southwest",-98.89707489,34.74346596
+"242","3408","Oklahoma","South Central",-96.94023854,34.33708924
+"243","3409","Oklahoma","Southeast",-95.03841336,34.45349991
+"244","3501","Oregon","Coastal Area",-123.9009501,44.11622441
+"245","3502","Oregon","Willamette Valley",-122.9291628,44.75551284
+"246","3503","Oregon","Southwestern Valleys",-123.0603158,42.8424854
+"247","3504","Oregon","Northern Cascades",-122.0798387,44.50247262
+"248","3505","Oregon","High Plateau",-121.421396,42.9978431
+"249","3506","Oregon","North Central",-120.1947756,45.40098785
+"250","3507","Oregon","South Central",-120.0336066,43.3552678
+"251","3508","Oregon","Northeast",-118.0054403,45.05930839
+"252","3509","Oregon","Southeast",-117.6215409,43.19190698
+"253","3601","Pennsylvania","Pocono Mountains",-75.4932464,41.32637463
+"254","3602","Pennsylvania","East Central Mountains",-75.8151972,40.74217003
+"255","3603","Pennsylvania","Southeastern Piedmont",-75.83333054,40.19051317
+"256","3604","Pennsylvania","Lower Susquehanna",-77.2010701,39.96175217
+"257","3605","Pennsylvania","Middle Susquehanna",-77.02852754,40.88771168
+"258","3606","Pennsylvania","Upper Susquehanna",-76.52660664,41.72489039
+"259","3607","Pennsylvania","Central Mountains",-78.14442216,41.14813274
+"260","3608","Pennsylvania","South Central Mountains",-78.33829104,40.26509884
+"261","3609","Pennsylvania","Southwest Plateau",-79.70028277,40.3837425
+"262","3610","Pennsylvania","Northwest Plateau",-79.29721669,41.60408681
+"263","3701","Rhode Island","Rhode Island",-71.53218307,41.67320505
+"264","3801","South Carolina","Mountain",-82.74348446,34.98135812
+"265","3802","South Carolina","Northwest",-82.21508068,34.7232179
+"266","3803","South Carolina","North Central",-80.94972403,34.60742604
+"267","3804","South Carolina","Northeast",-79.56006099,34.03972318
+"268","3805","South Carolina","West Central",-81.90642649,33.93456697
+"269","3806","South Carolina","Central",-80.70079991,33.78541292
+"270","3807","South Carolina","Southern",-80.61612285,32.90043413
+"271","3901","South Dakota","Northwest",-102.7586706,45.25406111
+"272","3902","South Dakota","North Central",-100.2809587,45.4713873
+"273","3903","South Dakota","Northeast",-97.84340232,45.45994232
+"274","3904","South Dakota","Black Hills",-103.6644928,43.92326189
+"275","3905","South Dakota","Southwest",-102.4854087,43.73840917
+"276","3906","South Dakota","Central",-100.2295788,44.34274441
+"277","3907","South Dakota","East Central",-97.77072862,44.50062706
+"278","3908","South Dakota","South Central",-100.3820108,43.3557768
+"279","3909","South Dakota","Southeast",-97.72438524,43.4178936
+"280","4001","Tennessee","Eastern",-83.71540942,35.93301293
+"281","4002","Tennessee","Cumberland Plateau",-85.34086542,35.82755506
+"282","4003","Tennessee","Middle",-87.03289684,35.86655735
+"283","4004","Tennessee","Western",-89.05458167,35.71374218
+"284","4101","Texas","High Plains",-101.9041896,34.44864792
+"285","4102","Texas","Low Rolling Plains",-100.2310169,33.43713056
+"286","4103","Texas","North Central",-97.6101251,32.49087573
+"287","4104","Texas","East Texas",-95.07019494,31.7259452
+"288","4105","Texas","Trans Pecos",-103.763181,30.82284304
+"289","4106","Texas","Edwards Plateau",-100.1523325,30.59516274
+"290","4107","Texas","South Central",-97.53519106,29.26046639
+"291","4108","Texas","Upper Coast",-95.58318117,29.38008616
+"292","4109","Texas","South",-98.90291355,27.89992113
+"293","4110","Texas","Lower Valley",-97.82670867,26.33189168
+"294","4201","Utah","Western",-113.3220255,39.9381941
+"295","4202","Utah","Dixie",-113.5297027,37.17601285
+"296","4203","Utah","North Central",-112.1527099,40.72694463
+"297","4204","Utah","South Central",-112.0904497,38.24855436
+"298","4205","Utah","Northern Mountains",-110.9567419,40.75321017
+"299","4206","Utah","Uinta Basin",-109.7752756,40.00570086
+"300","4207","Utah","Southeast",-110.1798144,38.21501328
+"301","4301","Vermont","Northeastern",-72.31541501,44.46115351
+"302","4302","Vermont","Western",-73.09611484,43.99842335
+"303","4303","Vermont","Southeastern",-72.62556366,43.27761294
+"304","4401","Virginia","Tidewater",-76.28376001,37.44717885
+"305","4402","Virginia","Eastern Piedmont",-77.93845688,37.42801037
+"306","4403","Virginia","Western Piedmont",-79.25571055,37.17224015
+"307","4404","Virginia","Northern",-77.99121312,38.75755763
+"308","4405","Virginia","Central Mountain",-79.50050857,37.99095841
+"309","4406","Virginia","Southwestern Mountain",-81.58854052,36.94606899
+"310","4501","Washington","West Olympic Coast",-123.9077436,47.40364084
+"311","4502","Washington","North East Olympic San Juan",-122.8226375,48.30759189
+"312","4503","Washington","Puget Sound Lowlands",-122.7251871,47.83475979
+"313","4504","Washington","East Olympic Cascade Foothills",-122.4943976,47.17169093
+"314","4505","Washington","Cascade Mountains West",-121.5367932,47.40497664
+"315","4506","Washington","East Slope Cascades",-120.7141956,47.48793258
+"316","4507","Washington","Okanogan Big Bend",-119.167644,47.86894687
+"317","4508","Washington","Central Basin",-119.491071,46.61502506
+"318","4509","Washington","Northeastern",-118.002715,48.35551786
+"319","4510","Washington","Plouse Blue Mountains",-117.5633564,46.68338011
+"320","4601","West Virginia","Northwestern",-81.00846663,39.55966375
+"321","4602","West Virginia","North Central",-80.51238769,39.1422993
+"322","4603","West Virginia","Southwestern",-81.800065,38.31003225
+"323","4604","West Virginia","Central",-80.22874282,38.51127077
+"324","4605","West Virginia","Southern",-81.04692017,37.56304604
+"325","4606","West Virginia","Northeastern",-78.68357109,39.17535067
+"326","4701","Wisconsin","Northwest",-91.63210863,45.85030316
+"327","4702","Wisconsin","North Central",-90.08534008,45.51440811
+"328","4703","Wisconsin","Northeast",-88.5238789,45.28319889
+"329","4704","Wisconsin","West Central",-91.4988597,44.48390765
+"330","4705","Wisconsin","Central",-89.56052742,44.17762939
+"331","4706","Wisconsin","East Central",-87.50213736,44.78812477
+"332","4707","Wisconsin","Southwest",-90.45434472,43.15652585
+"333","4708","Wisconsin","South Central",-89.16395351,43.08729421
+"334","4709","Wisconsin","Southeast",-88.21870468,42.9549242
+"335","4801","Wyoming","Yellowstone Drainage",-110.1284921,44.6550283
+"336","4802","Wyoming","Snake Drainage",-110.6322939,43.62774074
+"337","4803","Wyoming","Green and Bear Drainage",-109.5477983,41.87781915
+"338","4804","Wyoming","Big Horn",-108.4293584,44.21423717
+"339","4805","Wyoming","Powder Little Mo & Tongue Drainages",-106.3560824,44.24000108
+"340","4806","Wyoming","Belle Fourche Drainage",-104.8959231,44.3081838
+"341","4807","Wyoming","Cheyenne Niobrara Drainage",-104.8725975,43.41189306
+"342","4808","Wyoming","Lower Platte",-105.1611047,42.13836101
+"343","4809","Wyoming","Wind River",-108.5742241,43.167142
+"344","4810","Wyoming","Upper Platte",-106.8847217,41.95156209

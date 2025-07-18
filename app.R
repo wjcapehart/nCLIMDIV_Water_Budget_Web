@@ -11,6 +11,8 @@ library(package = "shiny")
 library(package = "tidyverse")
 library(package = "lubridate")
 library(package = "ClimClass") 
+library(DT)
+
 
 
 #
@@ -20,6 +22,13 @@ library(package = "ClimClass")
 #load(file = url(description = "http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/CLASS_Examples/nCLIMDIV.Rdata"))
 #load("/projects/THREDDS/local_academic_repo/CLASS_Examples/nCLIMDIV.Rdata")
 load("./nCLIMDIV.Rdata")
+load("./NCEI_nClimDiv_LUT.RData")
+
+NCEI_nClimDiv_LUT = NCEI_nClimDiv_LUT %>%
+  rename("Full_Zone_Code" = climdiv,
+         "AWC"             = climdiv_mean_mass_content_of_water_in_soil) %>%
+  select("Full_Zone_Code",
+         "AWC")
 
 nCLIMDIV$State_Name = gsub(pattern     = "\u00A0", 
                            replacement = "", 
@@ -34,29 +43,29 @@ last_year = year(max(nCLIMDIV$Date[(month(nCLIMDIV$Date) == 12)]))
 #  
 
 state_zone_lut =  nCLIMDIV %>% 
-    select(c(Full_Zone_Code,State_Name,Zone_Name))   %>%
-    mutate(State_Code    = substring(text  = Full_Zone_Code,
-                                     first = 1,
-                                     last  = 2),
-           SubState_Code = substring(text  = Full_Zone_Code,
-                                     first = 3,
-                                     last  = 4)) %>%
-    mutate(Zone_Name_and_Code = str_c(SubState_Code,
-                                      Zone_Name,
-                                      sep = " : "),
-           Zones_Per_State    = max(SubState_Code) ) %>%
-    unique()
+  select(c(Full_Zone_Code,State_Name,Zone_Name))   %>%
+  mutate(State_Code    = substring(text  = Full_Zone_Code,
+                                   first = 1,
+                                   last  = 2),
+         SubState_Code = substring(text  = Full_Zone_Code,
+                                   first = 3,
+                                   last  = 4)) %>%
+  mutate(Zone_Name_and_Code = str_c(SubState_Code,
+                                    Zone_Name,
+                                    sep = " : "),
+         Zones_Per_State    = max(SubState_Code) ) %>%
+  unique()
 
 state_code_lut = state_zone_lut %>% 
-    group_by(State_Name) %>% 
-    mutate(Zones_Per_State = max(SubState_Code)) %>%
-    select(c(State_Name,
-             State_Code,
-             Zones_Per_State))  %>%
-    unique()
+  group_by(State_Name) %>% 
+  mutate(Zones_Per_State = max(SubState_Code)) %>%
+  select(c(State_Name,
+           State_Code,
+           Zones_Per_State))  %>%
+  unique()
 
 selected_zones = state_zone_lut %>% 
-    filter(State_Name == "South_Dakota")
+  filter(State_Name == "South_Dakota")
 
 
 state_number_init =  as.numeric(unique(selected_zones$State_Code))
@@ -67,7 +76,7 @@ state_number = state_number_init
 
 
 
-
+#input fields end_plot_year, soil_storage_capacity, start_plot_year, target_climate_division, target_state_name 
 
 
 
@@ -85,96 +94,103 @@ state_number = state_number_init
 
 
 ui = fluidPage(
-    
-    title = "NCEI Climate Zone Water Budgets",  
-    
-    titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
+  
+  title = "NCEI Climate Zone Water Budgets",  
+  
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel = sidebarPanel(
-            
-            selectInput(inputId  = "target_state_name",
-                        label    = "US State",
-                        choices  = state_code_lut$State_Name,
-                        selected = state_code_lut$State_Name[1]),
-            
-            selectInput(inputId  = "target_climate_division",
-                        label    = "State Climate Zone Division",
-                        choices  = selected_zones$Zone_Name_and_Code,
-                        selected = selected_zones$Zone_Name_and_Code[1]),
-            
-            uiOutput("target_climate_division"),
+  
+  titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
+  
+  # Sidebar with a slider input for number of bins 
+  sidebarLayout(
+    sidebarPanel = sidebarPanel(
+      
+      selectInput(inputId  = "target_state_name",
+                  label    = "US State",
+                  choices  = state_code_lut$State_Name,
+                  selected = state_code_lut$State_Name[1]),
+      
+      selectInput(inputId  = "target_climate_division",
+                  label    = "State Climate Zone Division",
+                  choices  = selected_zones$Zone_Name_and_Code,
+                  selected = selected_zones$Zone_Name_and_Code[1]),
+      
+      uiOutput("target_climate_division"),
+      
+      sliderInput(inputId = "start_plot_year",
+                  label   = "Start Year for Plotting",
+                  min     = 1900,
+                  max     = last_year-1,
+                  value   = 2010,
+                  sep     = ""),   
+      
+      sliderInput(inputId = "end_plot_year",
+                  label   = "End Year for Plotting",
+                  min     = 1901,
+                  max     = last_year,
+                  value   = last_year,
+                  sep     = ""),  
+      
+      sliderInput(inputId = "soil_storage_capacity",
+                  label   = "Soil Storage Capacity (mm)",
+                  min     =  50,
+                  max     = 310,
+                  value   = 167.40298,
+                  sep     = ""),  
+      
+      
+      
+      h5("State Climate Division Map"),
+      
+      imageOutput(outputId = "state_division_map")
+    ),
+    
+    
+    
+    
+    
+    # Show a plot of the generated distribution
+    mainPanel = mainPanel(
+      
+     
+      h2("Instructions"), 
+      
+      p("Select the state and then, with the reference map, the state-level climate division from the pull-down menus"),
+      p("A default available soil water capacity derived from USGS STASGO data will be updated"),
+      p("Next, you can select the period over which the budget figure plotted with the sliders"),
+      p("The results will be shown below as a traditional Thornthwaite-Mather Budget figure for your selected dates, and a table of the complete available record."),
 
-            sliderInput(inputId = "start_plot_year",
-                        label   = "Start Year for Plotting",
-                        min     = 1900,
-                        max     = last_year-1,
-                        value   = 2010,
-                        sep     = ""),   
-            
-            sliderInput(inputId = "end_plot_year",
-                        label   = "End Year for Plotting",
-                        min     = 1901,
-                        max     = last_year,
-                        value   = last_year,
-                        sep     = ""),  
-            
-            sliderInput(inputId = "soil_storage_capacity",
-                        label   = "Soil Storage Capacity (mm)",
-                        min     =  50,
-                        max     = 200,
-                        value   = 150,
-                        sep     = ""),  
-            
-            
-            
-            h5("State Climate Division Map"),
-            
-           imageOutput(outputId = "state_division_map")
-        ),
-            
-        
-        
-        
-        
-        # Show a plot of the generated distribution
-        mainPanel = mainPanel(
-            
-            h2("Introduction"), 
-            
-            p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool that partitions rainfall between "),
-            p("- ideal (or 'potential') evaporation,"),
-            p("- actual evaporation,"),
-            p("- extraction of water from the soil,"),
-            p("- subsequent recharge of water into the soil, and"),
-            p("- soil and snowpack storage of water"),
-            p("This lets us review seasonal changes in the water cycle from year to year."),
-            p("The script behind this page uses the R 'ClimClass' Package"),
-            
-            h2("Instructions"), 
-            
-            p("Using the map, select the state and then the numbered region in the state from the pull-down menus"),
-            p("Next, you can select the period over which the budget is calculated with the sliders"),
-            p("The results will be shown below"),
-            h3("References"),
-            p("Thornthwaite, C.W.; Mather, J.R. The Water Balance; Laboratory in Climatology, Johns Hopkins University: Baltimore, MD, USA,
+ 
+      h2("Thornthwaite Budget Graph"), 
+      plotOutput(outputId = "thornthwaitePlot"),
+      
+      h2("Budget Table for Full Period"),
+      p("    (T in °C; Water units in mm)"),
+      DTOutput(outputId = "budget_table"),
+      #dataTableOutput(outputId = "budget_table"),
+      
+      h2("Download Full Budget Period"),
+      downloadButton('downloadData', 'Download'),
+      
+      # h2("Deepdive on Thorthwaite Mather Budgets")
+      h2("Introduction"), 
+      
+      p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool that partitions rainfall between "),
+      p("- ideal (or 'potential') evaporation,"),
+      p("- actual evaporation limited by available soil water,"),
+      p("- extraction of water from the soil,"),
+      p("- subsequent recharge of water into the soil, and"),
+      p("- soil and snowpack storage of water"),
+      p(" "),
+      p("The script behind this page uses the R 'ClimClass' Package"),
+      
+      h3("References"),
+      p("Thornthwaite, C.W.; Mather, J.R. The Water Balance; Laboratory in Climatology, Johns Hopkins University: Baltimore, MD, USA,
 1955; Volume 8, pp. 1–104."),
-            p("Emanuele Eccel's R ClimClass Package. https://CRAN.R-project.org/package=ClimClass"),
-          
-            h2("Budget Graph"), 
-            plotOutput(outputId = "thornthwaitePlot"),
-            
-            h2("Budget Table for Full Period (T in °C; Water units in mm"),
-            dataTableOutput(outputId = "budget_table"),
-            
-            h2("Download Full Budget Period"),
-            downloadButton('downloadData', 'Download')
-          
-            # h2("Deepdive on Thorthwaite Mather Budgets")
-
-        )
+      p("Emanuele Eccel's R ClimClass Package. https://CRAN.R-project.org/package=ClimClass"),
+      
     )
+  )
 )
 
 
@@ -208,9 +224,9 @@ ui = fluidPage(
 ##
 
 server = function(input, 
-                   output,
-                   session) {
- 
+                  output,
+                  session) {
+  
   
   ###############################################################################
   ###############################################################################
@@ -220,8 +236,6 @@ server = function(input,
   
   water_budget <- reactive({
     
-    
-
     
     target_climate_division = state_code_lut %>% 
       filter(State_Name == input$target_state_name)
@@ -236,7 +250,8 @@ server = function(input,
     
     initial_snow_cover =   0 # snow reservoir storage capacity in mm
     
-    single_zone = nCLIMDIV %>% filter(Full_Zone_Code == target_climate_division)
+    single_zone = nCLIMDIV %>% 
+      filter(Full_Zone_Code == target_climate_division)
     
     # generate thonthwaite budget
     
@@ -246,7 +261,7 @@ server = function(input,
                                     Tn     = single_zone$TMIN,  
                                     Tx     = single_zone$TMAX,
                                     Tm     = single_zone$TMPC)
-    
+
     thorntwaite_budget_raw = thornthwaite(series          = thorntwaite_inputs, 
                                           latitude        = single_zone$Center_Lat[1], 
                                           clim_norm       = NULL, 
@@ -379,8 +394,20 @@ server = function(input,
       mutate(Snowpack = ifelse(test = Snowpack>0, 
                                yes  = Snowpack, 
                                no   = 0))  
-   water_budget$Temp_Avg = round(thorntwaite_inputs$Tm[1:length(water_budget$Precipitation)],2)
     
+    # repair precip-PE (seems to be a typo in the original ClimClass Code)
+    water_budget = water_budget %>% 
+      mutate(Prec_m_PE = Precipitation - Potential_Evap)    
+    
+    water_budget$Surplus = round(water_budget$Surplus,1)
+    water_budget$Recharge = round(water_budget$Recharge,1)
+    water_budget$Precipitation = round(water_budget$Precipitation,1)
+    water_budget$Deficit = round(water_budget$Deficit,1)
+    water_budget$Evaporation = round(water_budget$Evaporation,1)
+    water_budget$Snowpack = round(water_budget$Snowpack,1)
+    water_budget$Prec_m_Evap = round(water_budget$Prec_m_Evap,1)
+    water_budget$Prec_m_PE = round(water_budget$Prec_m_PE,1)
+    water_budget$Temp_Avg = round(thorntwaite_inputs$Tm[1:length(water_budget$Precipitation)],1)
     
     
     water_budget = water_budget %>% select(Date,
@@ -406,243 +433,278 @@ server = function(input,
     ###############################################################################
     
   })
-
+  
   
   #
   ###############################################################################
   ###############################################################################
   
+  
+  
+  
+  
+  
+  ###############################################################################
+  #
+  # In-State Climate Zone Selection
+  #
+  
+  observeEvent(input$target_state_name,  {
     
- 
+    selected_zones = state_zone_lut %>% 
+      filter(State_Name == input$target_state_name) 
+    
+    state_number = as.numeric(unique(selected_zones$State_Code))
+    
+    updateSelectInput(session = session, 
+                      inputId = "target_climate_division", 
+                      choices = selected_zones$Zone_Name_and_Code)
+  }
+  )
+  
+  #
+  ###############################################################################
+  
+  
+  
+  
+  ###############################################################################
+  #
+  # In-State Climate Map for Division Selection
+  #
+  
+  output$state_division_map = renderImage({
+    
+    
+    
+    selected_zones = state_zone_lut %>% 
+      filter(State_Name == input$target_state_name) 
+    
+    state_number = as.numeric(unique(selected_zones$State_Code))
+    
+    
+    filename <- normalizePath(file.path('./state_climate_division_images',
+                                        paste('state_', 
+                                              sprintf("%02d",
+                                                      state_number), 
+                                              '.gif', 
+                                              sep='')))
+    
+    # Return a list containing the filename
+    list(src   = filename,
+         width = "100%")
+  }, 
+  deleteFile = FALSE)
+  
+  #
+  ###############################################################################
+  
+  
+  
+  ###############################################################################
+  #
+  # End Year Range Selection
+  #
+  
+  observeEvent(input$start_plot_year,  {
+    
+    updateSliderInput(session = session, 
+                      inputId = "end_plot_year", 
+                      min = input$start_plot_year)
+    
+  })
+  
+  #
+  ###############################################################################
+  
+  
+  ###############################################################################
+  #
+  # Update Default Soil Water Capacity
+  #
+  
+  observeEvent(input$target_climate_division,  {
+    
 
+    selected_zones = state_zone_lut %>% 
+      filter(State_Name == input$target_state_name) 
     
+    state_number = (unique(selected_zones$State_Code))
 
-    ###############################################################################
-    #
-    # In-State Climate Zone Selection
-    #
-    
-    observeEvent(input$target_state_name,  {
-        
-        selected_zones = state_zone_lut %>% 
-            filter(State_Name == input$target_state_name) 
-        
-        state_number = as.numeric(unique(selected_zones$State_Code))
-        
-        updateSelectInput(session = session, 
-                          inputId = "target_climate_division", 
-                          choices = selected_zones$Zone_Name_and_Code)
-        }
-        )
-    
-    #
-    ###############################################################################
+   climdiv_for_awc = str_c(state_number,
+                           substring(text  = input$target_climate_division,
+                                     first = 1,
+                                     last  = 2), 
+                                     sep = "")
 
-    
-    
-    
-    ###############################################################################
-    #
-    # In-State Climate Map for Division Selection
-    #
-    
-    output$state_division_map = renderImage({
-        
-
-        
-        selected_zones = state_zone_lut %>% 
-            filter(State_Name == input$target_state_name) 
-        
-        state_number = as.numeric(unique(selected_zones$State_Code))
-        
-
-        filename <- normalizePath(file.path('./state_climate_division_images',
-                                            paste('state_', 
-                                                  sprintf("%02d",
-                                                          state_number), 
-                                                  '.gif', 
-                                                  sep='')))
-        
-        # Return a list containing the filename
-        list(src   = filename,
-             width = "100%")
-    }, 
-    deleteFile = FALSE)
-    
-    #
-    ###############################################################################
-    
-    
-    
-    ###############################################################################
-    #
-    # End Year Range Selection
-    #
-    
-    observeEvent(input$start_plot_year,  {
-        
-        updateSliderInput(session = session, 
-                          inputId = "end_plot_year", 
-                           min = input$start_plot_year)
-        
-    })
-    
-    #
-    ###############################################################################
-    
+   AWC_rec = NCEI_nClimDiv_LUT %>%
+     filter(Full_Zone_Code == climdiv_for_awc)
    
+
+   slider_AWC = round(AWC_rec$AWC,1)
+  
+   updateSliderInput(session = session, 
+                     inputId = "soil_storage_capacity", 
+                     value = slider_AWC)
     
+    
+    
+  })
+  
+  #
+  ###############################################################################
+  
+  
+  ###############################################################################
+  #
+  #  Plot Thortnwhatie Budgets
+  #
+  
+  output$thornthwaitePlot = renderPlot(expr = {
     
     ###############################################################################
     #
-    #  Plot Thortnwhatie Budgets
+    # Draw Time Series
     #
     
-    output$thornthwaitePlot = renderPlot(expr = {
-        
-        ###############################################################################
-        #
-        # Draw Time Series
-        #
-        
-        # making two datasets, one for lines, the other for bars
-      
-        local_water_budget = water_budget()
-        
-        subset = local_water_budget %>% filter((year(Date) >= input$start_plot_year) &
+    # making two datasets, one for lines, the other for bars
+    
+    local_water_budget = water_budget()
+    
+    subset = local_water_budget %>% filter((year(Date) >= input$start_plot_year) &
                                              (year(Date) <= input$end_plot_year)   )
-        
-        subset_lines = subset %>% select(Date,
-                                         Precipitation,
-                                         Potential_Evap)
-        
-        subset_lines = gather(data  = subset_lines,
-                              value = "Value",
-                              key   = "Variable",
-                              Precipitation,
-                              Potential_Evap)
-        
-        subset_lines$Variable = as_factor(subset_lines$Variable)
-        
-        subset_bars = subset %>% select(Date,
-                                        Evaporation,
-                                        Surplus,
-                                        Recharge,
-                                        Snowpack,
-                                        Deficit)
-        
-        subset_bars = gather(data  = subset_bars,
-                             value = "Value",
-                             key   = "Variable",
-                             Deficit,
-                             Surplus,
-                             Recharge,
-                             Snowpack,
-                             Evaporation) 
-        
-        subset_bars$Variable = as_factor(subset_bars$Variable)
-
-        ggplot(data = subset_lines) +
-            
-            theme_bw() +
-            
-            aes(x     = Date,
-                y     = Value) +
-            
-            ggtitle(label    = "Thornthwaite-Mather Water Budget",
-                    subtitle = str_c(unique(input$target_climate_division),
-                                     unique(input$target_state_name),
-                                     sep = ", ")) + 
-            
-            labs(caption = str_c("Soil Storage Capacity = ",
-                                    input$soil_storage_capacity,
-                                    " mm",
-                                    sep = "")) + 
-            
-            xlab(label = "Time") +
-            
-            ylab(label = "Budget (mm)") +
-            
-            scale_fill_manual(values = c( "Precipitation"  = "darkgreen", 
-                                          "Potential_Evap" = "darkred",
-                                          "Deficit"     = "orange",
-                                          "Surplus"     = "green",
-                                          "Recharge"    = "blue",
-                                          "Snowpack"    = "lightcyan",
-                                          "Evaporation" = "yellow"),
-                              name = NULL) +
-            
-            geom_bar(data    = subset_bars,
-                     mapping = aes(x     = Date,
-                                   y    = Value,
-                                   fill = Variable),
-                     stat = 'identity',
-                     position = "stack") +
-            
-            scale_color_manual(values = c( "Precipitation"  = "darkgreen", 
-                                           "Potential_Evap" = "darkred",
-                                           "Deficit"     = "orange",
-                                           "Surplus"     = "green",
-                                           "Recharge"    = "blue",
-                                           "Snowpack"    = "lightcyan",
-                                           "Evaporation" = "yellow"),
-                               name = NULL) +
-            
-            geom_line(data    = subset_lines,
-                      mapping = aes(x     = Date,
-                                    y     = Value,
-                                    color = Variable,
-                                    fill  = NULL))     
-        
-        
-        #
-        ###############################################################################
-        
-
-    })
     
-    #
-    ###############################################################################
-
+    subset_lines = subset %>% select(Date,
+                                     Precipitation,
+                                     Potential_Evap)
     
+    subset_lines = gather(data  = subset_lines,
+                          value = "Value",
+                          key   = "Variable",
+                          Precipitation,
+                          Potential_Evap)
     
+    subset_lines$Variable = as_factor(subset_lines$Variable)
     
+    subset_bars = subset %>% select(Date,
+                                    Evaporation,
+                                    Surplus,
+                                    Recharge,
+                                    Snowpack,
+                                    Deficit)
     
-    ###############################################################################
-    #
-    # Display Thorntwaite Budgets as a Table
-    #
+    subset_bars = gather(data  = subset_bars,
+                         value = "Value",
+                         key   = "Variable",
+                         Deficit,
+                         Surplus,
+                         Recharge,
+                         Snowpack,
+                         Evaporation) 
     
-    output$budget_table =  renderDataTable( expr = {
-
-        
-      water_budget()  
-        
-        
-            } )
+    subset_bars$Variable = as_factor(subset_bars$Variable)
+    
+    ggplot(data = subset_lines) +
+      
+      theme_bw() +
+      
+      aes(x     = Date,
+          y     = Value) +
+      
+      ggtitle(label    = "Thornthwaite-Mather Water Budget",
+              subtitle = str_c(unique(input$target_climate_division),
+                               unique(input$target_state_name),
+                               sep = ", ")) + 
+      
+      labs(caption = str_c("Soil Storage Capacity = ",
+                           input$soil_storage_capacity,
+                           " mm",
+                           sep = "")) + 
+      
+      xlab(label = "Time") +
+      
+      ylab(label = "Budget (mm)") +
+      
+      scale_fill_manual(values = c( "Precipitation"  = "darkgreen", 
+                                    "Potential_Evap" = "darkred",
+                                    "Deficit"     = "orange",
+                                    "Surplus"     = "green",
+                                    "Recharge"    = "blue",
+                                    "Snowpack"    = "lightcyan",
+                                    "Evaporation" = "yellow"),
+                        name = NULL) +
+      
+      geom_bar(data    = subset_bars,
+               mapping = aes(x     = Date,
+                             y    = Value,
+                             fill = Variable),
+               stat = 'identity',
+               position = "stack") +
+      
+      scale_color_manual(values = c( "Precipitation"  = "darkgreen", 
+                                     "Potential_Evap" = "darkred",
+                                     "Deficit"     = "orange",
+                                     "Surplus"     = "green",
+                                     "Recharge"    = "blue",
+                                     "Snowpack"    = "lightcyan",
+                                     "Evaporation" = "yellow"),
+                         name = NULL) +
+      
+      geom_line(data    = subset_lines,
+                mapping = aes(x     = Date,
+                              y     = Value,
+                              color = Variable,
+                              fill  = NULL))     
+    
     
     #
     ###############################################################################
     
     
-    ###############################################################################
-    #
-    # Download Full Budgtet to a CSV FIle
-    #
+  })
+  
+  #
+  ###############################################################################
+  
+  
+  
+  
+  
+  ###############################################################################
+  #
+  # Display Thorntwaite Budgets as a Table
+  #
+  
+  output$budget_table =  renderDataTable( expr = {
     
-    output$downloadData <- downloadHandler(
-      filename = function() {
-        paste("Water_Budget.csv", sep = "")
-      },
-      content = function(file) {
-        write.csv(water_budget(), file, row.names = FALSE)
-      }
-    )
     
-    #
-    ###############################################################################
+    water_budget()  
     
     
+  } )
+  
+  #
+  ###############################################################################
+  
+  
+  ###############################################################################
+  #
+  # Download Full Budgtet to a CSV FIle
+  #
+  
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste("Water_Budget.csv", sep = "")
+    },
+    content = function(file) {
+      write.csv(water_budget(), file, row.names = FALSE)
+    }
+  )
+  
+  #
+  ###############################################################################
+  
+  
 }
 
 ##
@@ -668,6 +730,3 @@ shinyApp(ui     = ui,
 ##
 ###############################################################################
 ###############################################################################
-
-
-

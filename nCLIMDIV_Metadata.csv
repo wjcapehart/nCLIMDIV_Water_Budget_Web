@@ -1,0 +1,18 @@
+"","Variable","param_code","long_name","units","nCLIMDIV_Version","nCLIMDIV_Release_Date"
+"1","TMAX",27,"Maximum Monthly Temperature","deg C","v1.0.0",2025-05-06
+"2","TMIN",28,"Minimim Monthly Temperature","deg C","v1.0.0",2025-05-06
+"3","TMPC",2,"Mean Monthly Temperature","deg C","v1.0.0",2025-05-06
+"4","CDDC",26,"Cooling Degree Days",NA,"v1.0.0",2025-05-06
+"5","HDDC",25,"Heating Degree Days",NA,"v1.0.0",2025-05-06
+"6","PCPN",1,"Monthly Total Precipitation","kg m-2","v1.0.0",2025-05-06
+"7","PDSI",5,"Palmer Drought Severity Index",NA,"v1.0.0",2025-05-06
+"8","PHDI",6,"Palmer Hydrological Drought Index",NA,"v1.0.0",2025-05-06
+"9","PMDI",8,"Modified Palmer Drought Severity Index",NA,"v1.0.0",2025-05-06
+"10","SP01",71,"Modified Palmer Drought Severity Index",NA,"v1.0.0",2025-05-06
+"11","SP02",72,"2-mo Standardized Precipitation Index",NA,"v1.0.0",2025-05-06
+"12","SP03",73,"3-mo Standardized Precipitation Index",NA,"v1.0.0",2025-05-06
+"13","SP06",74,"6-mo Standardized Precipitation Index",NA,"v1.0.0",2025-05-06
+"14","SP09",75,"9-mo Standardized Precipitation Index",NA,"v1.0.0",2025-05-06
+"15","SP12",76,"12-mo Standardized Precipitation Index",NA,"v1.0.0",2025-05-06
+"16","SP24",77,"24-mo Standardized Precipitation Index",NA,"v1.0.0",2025-05-06
+"17","ZNDX",7,"Palmer ""Z"" Index",NA,"v1.0.0",2025-05-06
