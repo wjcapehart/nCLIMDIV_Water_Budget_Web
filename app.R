@@ -96,9 +96,12 @@ state_number = state_number_init
 ui = fluidPage(
   
   title = "NCEI Climate Zone Water Budgets",  
+  img(src   = "https://kyrill.ias.sdsmt.edu/wjc/web_graphics/SDSMT_AES_Shiny_Logo.png",
+      width = "500px"),
   
-
-  
+  hr(color="#B3A369",
+     height = "100px"),
+    
   titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
   
   # Sidebar with a slider input for number of bins 
@@ -227,6 +230,10 @@ server = function(input,
                   output,
                   session) {
   
+  
+
+    
+    
   
   ###############################################################################
   ###############################################################################
