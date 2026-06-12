@@ -494,7 +494,7 @@ server = function(input,
                                         paste('state_', 
                                               sprintf("%02d",
                                                       state_number), 
-                                              '.gif', 
+                                              '.png', 
                                               sep='')))
     
     # Return a list containing the filename
