@@ -95,18 +95,21 @@ state_number = state_number_init
 
 ui = fluidPage(
   
-  title = "NCEI Climate Zone Water Budgets",  
-  img(src   = "https://kyrill.ias.sdsmt.edu/wjc/web_graphics/SDSMT_AES_Shiny_Logo.png",
-      width = "500px"),
   
-  hr(color="#B3A369",
-     height = "100px"),
+  title = "NCEI Climate Zone Water Budgets",  
+  #img(src   = "https://kyrill.ias.sdsmt.edu/wjc/web_graphics/SDSMT_AES_Shiny_Logo.png",
+  #    width = "500px"),
+  #  
+  #hr(color="#B3A369",
+  #   height = "100px"),
     
   titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel = sidebarPanel(
+      
+      h4("User Controls"),
       
       selectInput(inputId  = "target_state_name",
                   label    = "US State",
@@ -155,14 +158,7 @@ ui = fluidPage(
     # Show a plot of the generated distribution
     mainPanel = mainPanel(
       
-     
-      h2("Instructions"), 
-      
-      p("Select the state and then, with the reference map, the state-level climate division from the pull-down menus"),
-      p("A default available soil water capacity derived from USGS STASGO data will be updated"),
-      p("Next, you can select the period over which the budget figure plotted with the sliders"),
-      p("The results will be shown below as a traditional Thornthwaite-Mather Budget figure for your selected dates, and a table of the complete available record."),
-
+   
  
       h2("Thornthwaite Budget Graph"), 
       plotOutput(outputId = "thornthwaitePlot"),
@@ -174,6 +170,15 @@ ui = fluidPage(
       
       h2("Download Full Budget Period"),
       downloadButton('downloadData', 'Download'),
+ 
+      
+      #h2("About This Display"), 
+    #  
+      #p("Select the state and then, with the reference map, the state-level climate division from the pull-down menus"),
+      #p("A default available soil water capacity derived from USGS STASGO data will be updated"),
+      #p("Next, you can select the period over which the budget figure plotted with the sliders"),
+      #p("The results will be shown below as a traditional Thornthwaite-Mather Budget figure for your selected dates, and a table of the complete available record."),
+      
       
       # h2("Deepdive on Thorthwaite Mather Budgets")
       h2("Introduction"), 
