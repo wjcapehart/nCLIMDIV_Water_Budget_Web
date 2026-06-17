@@ -639,10 +639,10 @@ server = function(input,
       
       scale_fill_manual(values = c( "Precipitation"  = "darkgreen", 
                                     "Potential_Evap" = "darkred",
-                                    "Deficit"     = "orange",
-                                    "Surplus"     = "green",
-                                    "Recharge"    = "blue",
+                                    "Surplus"     = "dodgerblue",
+                                    "Recharge"    = "limegreen",
                                     "Snowpack"    = "lightcyan",
+                                    "Deficit"     = "orange",
                                     "Evaporation" = "yellow"),
                         name = NULL) +
       
@@ -655,10 +655,10 @@ server = function(input,
       
       scale_color_manual(values = c( "Precipitation"  = "darkgreen", 
                                      "Potential_Evap" = "darkred",
-                                     "Deficit"     = "orange",
-                                     "Surplus"     = "green",
-                                     "Recharge"    = "blue",
+                                     "Surplus"     = "dodgerblue",
+                                     "Recharge"    = "limegreen",
                                      "Snowpack"    = "lightcyan",
+                                     "Deficit"     = "orange",
                                      "Evaporation" = "yellow"),
                          name = NULL) +
       
