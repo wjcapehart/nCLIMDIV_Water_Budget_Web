@@ -15,7 +15,7 @@ library(package = "lubridate")
 library(package = "ClimClass") 
 library(package = "htmltools")
 
-library(DT)
+library(package = "DT")
 
 
 
