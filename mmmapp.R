@@ -18,13 +18,10 @@ library(package = "htmltools")
 library(DT)
 
 
-
 #
 # Input Climate Data
 #
 
-#load(file = url(description = "http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/CLASS_Examples/nCLIMDIV.Rdata"))
-#load("/projects/THREDDS/local_academic_repo/CLASS_Examples/nCLIMDIV.Rdata")
 load("./nCLIMDIV.Rdata")
 load("./NCEI_nClimDiv_LUT.RData")
 
@@ -88,6 +85,7 @@ state_number = state_number_init
 
 
 
+
 ###############################################################################
 ###############################################################################
 ##
@@ -95,34 +93,27 @@ state_number = state_number_init
 ##
 
 
-ui = fluidPage(
+ui = page_sidebar(
   
   
   title = "NCEI Climate Zone Water Budgets",  
-  #img(src   = "https://kyrill.ias.sdsmt.edu/wjc/web_graphics/SDSMT_AES_Shiny_Logo.png",
-  #    width = "500px"),
-  #  
-  #hr(color="#B3A369",
-  #   height = "100px"),
-    
-  titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
+
   
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel = sidebarPanel(
+    sidebar = sidebar(
       
-      h4("User Controls"),
+      title = "User Controls",
       
-      selectInput(inputId  = "selected_target_state_name",
+      selectInput(inputId  = "target_state_name",
                   label    = "US State",
                   choices  = state_code_lut$State_Name,
-                  selected = state_code_lut$State_Name[39]),
+                  selected = state_code_lut$State_Name[1]),
       
-      selectInput(inputId  = "selected_target_climate_division",  # input
+      selectInput(inputId  = "target_climate_division",
                   label    = "State Climate Zone Division",
                   choices  = selected_zones$Zone_Name_and_Code,
                   selected = selected_zones$Zone_Name_and_Code[1]),
       
+      uiOutput("target_climate_division"),
       
       sliderInput(inputId = "start_plot_year",
                   label   = "Start Year for Plotting",
@@ -155,13 +146,11 @@ ui = fluidPage(
     
     
     
-    
-    # Show a plot of the generated distribution
-    mainPanel = mainPanel(
+
       
       card(
-        card_header("Thornthwaite Budget Graph"),
-        plotOutput(outputId = "thornthwaitePlot"),
+        card_header("Thornthwaite Budget Graph"),full_screen = TRUE,
+        card_body(plotOutput(outputId = "thornthwaitePlot")),
       ),
       
       br(),
@@ -183,24 +172,16 @@ ui = fluidPage(
       br(),
       
       
-      #h2("About This Display"), 
-    #  
-      #p("Select the state and then, with the reference map, the state-level climate division from the pull-down menus"),
-      #p("A default available soil water capacity derived from USGS STASGO data will be updated"),
-      #p("Next, you can select the period over which the budget figure plotted with the sliders"),
-      #p("The results will be shown below as a traditional Thornthwaite-Mather Budget figure for your selected dates, and a table of the complete available record."),
-      
-      
-      # h2("Deepdive on Thorthwaite Mather Budgets")
-    
     card(
-      card_header("About This Dislay"),
+      card_header("About This Display"),
       
-      p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool.  A 'deep dive' on how Thornthwaite-Mather Budgters work is below. "),
-      p("The data driving this application is the NOAA Monthly U.S. Climate Divisional Database (NClimDiv) which provides quality-checked past climate data aggregated to regional state climate divisions."),
-      p("To use, the user can select the State and then the Climate Division (a state climate divsion map will be displayed for reference. "),
-      p("From there, you can provide a start and end date plot, and if you wish, change the local default maximuim soil storage."),
-      p("The results can be viewed in the accompanying graph for the selected dates and the table can be downloaded as a comma-delimited file for the whole time series."),
+      p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool that partitions rainfall between "),
+      p("- ideal (or 'potential') evaporation,"),
+      p("- actual evaporation limited by available soil water,"),
+      p("- extraction of water from the soil,"),
+      p("- subsequent recharge of water into the soil, and"),
+      p("- soil and snowpack storage of water"),
+      p(" "),
       p("The script behind this page uses the R 'ClimClass' Package"),
     ),
     br(),
@@ -240,14 +221,13 @@ ui = fluidPage(
     card(
       card_header("Citations & References"),
       markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The Water Balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
-      markdown("Emanuele Eccel's R ClimClass Package. [https://CRAN.R-project.org/package=ClimClass](https://CRAN.R-project.org/package=ClimClass)."),
+      p("Emanuele Eccel's R ClimClass Package. https://CRAN.R-project.org/package=ClimClass"),
       )
     
       
-    )
+)
       
-    )
-  )
+
 
 
 
@@ -299,10 +279,10 @@ server = function(input,
     
     
     target_climate_division = state_code_lut %>% 
-      filter(State_Name == input$selected_target_state_name)
+      filter(State_Name == input$target_state_name)
     
     target_climate_division = str_c(target_climate_division$State_Code,
-                                    substring(text  = input$selected_target_climate_division,
+                                    substring(text  = input$target_climate_division,
                                               first = 1,
                                               last  = 2), 
                                     sep = "")
@@ -510,15 +490,15 @@ server = function(input,
   # In-State Climate Zone Selection
   #
   
-  observeEvent(input$selected_target_state_name,  {
+  observeEvent(input$target_state_name,  {
     
     selected_zones = state_zone_lut %>% 
-      filter(State_Name == input$selected_target_state_name) 
+      filter(State_Name == input$target_state_name) 
     
     state_number = as.numeric(unique(selected_zones$State_Code))
     
     updateSelectInput(session = session, 
-                      inputId = "selected_target_climate_division", 
+                      inputId = "target_climate_division", 
                       choices = selected_zones$Zone_Name_and_Code)
   }
   )
@@ -539,7 +519,7 @@ server = function(input,
     
     
     selected_zones = state_zone_lut %>% 
-      filter(State_Name == input$selected_target_state_name) 
+      filter(State_Name == input$target_state_name) 
     
     state_number = as.numeric(unique(selected_zones$State_Code))
     
@@ -584,16 +564,16 @@ server = function(input,
   # Update Default Soil Water Capacity
   #
   
-  observeEvent(input$selected_target_climate_division,  {
+  observeEvent(input$target_climate_division,  {
     
 
     selected_zones = state_zone_lut %>% 
-      filter(State_Name == input$selected_target_state_name) 
+      filter(State_Name == input$target_state_name) 
     
     state_number = (unique(selected_zones$State_Code))
 
    climdiv_for_awc = str_c(state_number,
-                           substring(text  = input$selected_target_climate_division,
+                           substring(text  = input$target_climate_division,
                                      first = 1,
                                      last  = 2), 
                                      sep = "")
@@ -673,8 +653,8 @@ server = function(input,
           y     = Value) +
       
       ggtitle(label    = "Thornthwaite-Mather Water Budget",
-              subtitle = str_c(unique(input$selected_target_climate_division),
-                               unique(input$selected_target_state_name),
+              subtitle = str_c(unique(input$target_climate_division),
+                               unique(input$target_state_name),
                                sep = ", ")) + 
       
       labs(caption = str_c("Soil Storage Capacity = ",
