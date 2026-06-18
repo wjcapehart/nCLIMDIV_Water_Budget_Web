@@ -23,10 +23,13 @@ library(package = "DT")
 # Input Climate Data
 #
 
-#load(file = url(description = "http://kyrill.ias.sdsmt.edu:8080/thredds/fileServer/CLASS_Examples/nCLIMDIV.Rdata"))
-#load("/projects/THREDDS/local_academic_repo/CLASS_Examples/nCLIMDIV.Rdata")
-load("./nCLIMDIV.Rdata")
-load("./NCEI_nClimDiv_LUT.RData")
+
+
+load("./nCLIMDIV.Rdata", verbose=TRUE)
+load("./NCEI_nClimDiv_LUT.RData", verbose=TRUE)
+
+
+#print(nClimDiv)
 
 NCEI_nClimDiv_LUT = NCEI_nClimDiv_LUT %>%
   rename("Full_Zone_Code" = climdiv,
@@ -99,11 +102,8 @@ ui = fluidPage(
   
   
   title = "NCEI Climate Zone Water Budgets",  
-  #img(src   = "https://kyrill.ias.sdsmt.edu/wjc/web_graphics/SDSMT_AES_Shiny_Logo.png",
-  #    width = "500px"),
-  #  
-  #hr(color="#B3A369",
-  #   height = "100px"),
+
+  
     
   titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
   
@@ -127,7 +127,7 @@ ui = fluidPage(
       sliderInput(inputId = "start_plot_year",
                   label   = "Start Year for Plotting",
                   min     = 1900,
-                  max     = last_year-1,
+                  max     = last_year,
                   value   = 2010,
                   sep     = ""),   
       
@@ -183,15 +183,6 @@ ui = fluidPage(
       br(),
       
       
-      #h2("About This Display"), 
-    #  
-      #p("Select the state and then, with the reference map, the state-level climate division from the pull-down menus"),
-      #p("A default available soil water capacity derived from USGS STASGO data will be updated"),
-      #p("Next, you can select the period over which the budget figure plotted with the sliders"),
-      #p("The results will be shown below as a traditional Thornthwaite-Mather Budget figure for your selected dates, and a table of the complete available record."),
-      
-      
-      # h2("Deepdive on Thorthwaite Mather Budgets")
     
     card(
       card_header("About This Dislay"),
@@ -646,6 +637,7 @@ server = function(input,
                           Potential_Evap)
     
     subset_lines$Variable = as_factor(subset_lines$Variable)
+
     
     subset_bars = subset %>% select(Date,
                                     Evaporation,
@@ -662,8 +654,22 @@ server = function(input,
                          Recharge,
                          Snowpack,
                          Evaporation) 
+
+        
+    print("Unique Variables")
+    print(unique(subset_bars$Variable))
     
-    subset_bars$Variable = as_factor(subset_bars$Variable)
+    print("create as factor")
+    
+    subset_bars$Variable = ordered(subset_bars$Variable,
+                                     levels = c("Surplus", 
+                                                "Recharge", 
+                                                "Snowpack", 
+                                                "Deficit", 
+                                                "Evaporation"))
+    
+    print("Resulting levels")
+    print(levels(subset_bars$Variable))    
     
     ggplot(data = subset_lines) +
       
