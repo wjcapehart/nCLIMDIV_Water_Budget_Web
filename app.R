@@ -98,147 +98,145 @@ state_number = state_number_init
 ##
 
 
-ui = fluidPage(
+ui = page_sidebar(
   
-  
-  titlePanel("NCEI Climate Zone Water Budgets"),  
+  sidebar = sidebar(
+    
+    
+    selectInput(inputId  = "selected_target_state_name",
+                label    = "US State",
+                choices  = state_code_lut$State_Name,
+                selected = state_code_lut$State_Name[39]),
+    
+    selectInput(inputId  = "selected_target_climate_division",  # input
+                label    = "State Climate Zone Division",
+                choices  = selected_zones$Zone_Name_and_Code,
+                selected = selected_zones$Zone_Name_and_Code[1]),
+    
+    sliderInput(inputId = "start_plot_year",
+                label   = "Start Year for Plotting",
+                min     = 1900,
+                max     = last_year,
+                value   = 2010,
+                sep     = ""),   
+    
+    sliderInput(inputId = "end_plot_year",
+                label   = "End Year for Plotting",
+                min     = 1901,
+                max     = last_year,
+                value   = last_year,
+                sep     = ""),  
+    
+    sliderInput(inputId = "soil_storage_capacity",
+                label   = "Soil Storage Capacity (mm)",
+                min     =  50,
+                max     = 310,
+                value   = 167.40298,
+                sep     = ""),  
+    
+    p("State Climate Zone Map"),
+    
+    imageOutput(outputId = "state_division_map"),
+
+    title = "User Control",
+    
+    fillable = FALSE,
+    
+  ), # sidebar()
 
   
-    
-  #titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
+  card(
+    card_header("Thornthwaite Budget Graph"),
+    card_body(
+      plotOutput(outputId = "thornthwaitePlot")
+    ),
+    min_height = "400px"
+  ),
+  #br(),
   
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    
-    sidebarPanel(
-      
-      title = "User Controls",
-      
-      selectInput(inputId  = "selected_target_state_name",
-                  label    = "US State",
-                  choices  = state_code_lut$State_Name,
-                  selected = state_code_lut$State_Name[39]),
-      
-      selectInput(inputId  = "selected_target_climate_division",  # input
-                  label    = "State Climate Zone Division",
-                  choices  = selected_zones$Zone_Name_and_Code,
-                  selected = selected_zones$Zone_Name_and_Code[1]),
-      
-      
-      sliderInput(inputId = "start_plot_year",
-                  label   = "Start Year for Plotting",
-                  min     = 1900,
-                  max     = last_year,
-                  value   = 2010,
-                  sep     = ""),   
-      
-      sliderInput(inputId = "end_plot_year",
-                  label   = "End Year for Plotting",
-                  min     = 1901,
-                  max     = last_year,
-                  value   = last_year,
-                  sep     = ""),  
-      
-      sliderInput(inputId = "soil_storage_capacity",
-                  label   = "Soil Storage Capacity (mm)",
-                  min     =  50,
-                  max     = 310,
-                  value   = 167.40298,
-                  sep     = ""),  
-      
-      
-      
-      h5("State Climate Division Map"),
-      
-      imageOutput(outputId = "state_division_map")
-      
-    ),  # Sidebar Pannel
-
-    
-    mainPanel = mainPanel(
-      
-      card(
-        card_header("Thornthwaite Budget Graph"),
-        plotOutput(outputId = "thornthwaitePlot"),
-      ),
-      
-      br(),
-      
-      card(
-        card_header("Budget Table for Full Period"),
-        p("    (T in °C; Water units in mm)"),
-        DTOutput(outputId = "budget_table"),
-        #dataTableOutput(outputId = "budget_table"),
-      ),
-      br(),
-      
-      card(
-      
-        card_header("Download Full Budget Period"),
-        downloadButton('downloadData', 'Download'),
- 
-      ),
-      br(),
-      
-      
-    
-    card(
-      card_header("About This Dislay"),
-        card_body(
-          p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool.  A 'deep dive' on how Thornthwaite-Mather Budgters work is below. "),
-          p("The data driving this application is the NOAA Monthly U.S. Climate Divisional Database (NClimDiv) which provides quality-checked past climate data aggregated to regional state climate divisions."),
-          p("To use, the user can select the State and then the Climate Division (a state climate divsion map will be displayed for reference. "),
-          p("From there, you can provide a start and end date plot, and if you wish, change the local default maximuim soil storage."),
-          p("The results can be viewed in the accompanying graph for the selected dates and the table can be downloaded as a comma-delimited file for the whole time series."),
-          p("The script behind this page uses the R 'ClimClass' Package"),
-      ),
+  card(
+    card_header("Budget Table for Full Period"),
+    card_body(
+      DTOutput(outputId = "budget_table"),
+      p("Units in mm for water, °C for Temperatures"),
     ),
-    br(),
-    
-    
-    card(        card_header("About Thornthwaite-Mather Budgets"),
-                    p("The Thornthwaite-Mather Budget (Thornthwaite and Mather, 1955) is a simple water-accounting scheme that requires only minimal input data (monthly mean temperature and monthly total precipitation).  The budget can be presented as a ledger-style table or, more often, as the line/bar/area graphic shown in the topmost figure above.  "),
-                    
-                    p("Its components are as follows (all units here are in depth of water, in our case mm of water)."),
-                    
-                    HTML("<span style='color: #008000;font-weight: bold;'>Precipitation</span>"),
-                    p("As with all budgets, we have an income stream. Here, it is the total monthly precipitation. This data typically comes directly from observed values. In the budget graphic above, it is represented by the solid green line (a reference dashed line is available for the future climate scenarios to show the historical baseline)."),
-                    
-                    HTML("<span style='color: #880000;font-weight: bold;'>Potential Evapotranspiration</span>"),
-                    p("This represents the atmospheric demand for your available water. It may exceed the amount actually available in your water budget for that month. Potential Evapotranspiration can be calculated in several ways, but here it is a function of monthly and annual temperatures and latitude. Like precipitation, this is represented by a solid line in our Thornthwaite-Mather budget plots, this time in blue. And again, a historical reference line for the future climate plots is included as the dashed line."),
-                    
-                    HTML("<span style='color: #BA8E23;font-weight: bold;'>Evapotranspiration</span>"),
-                    p("If there is sufficient water from precipitation, the actual amount of evapotranspiration equals Potential Evaporation. But when Precipitation (supply) is outpaced by Potential Evapotranspiration (atmospheric demand), the difference is drawn from the landscape's water storage. The wetter the soil (the more storage), the easier it is to extract water to offset our budgetary imbalance. As the soil dries, resistance to extracting water from the soil increases. In our budget figure, evapotranspiration is shown as the yellow-shaded area. The actual storage amount in the model can be seen in the figure comparing the budgets across the different scenarios, but it is typically not explicitly shown in the classic Thornthwaite-Mather budget plots."),
-                    
-                    HTML("<span style='color: #FF800D;font-weight: bold;'>Deficit</span>"),
-                    p("Even with evaporation tapping the soil as a supplemental source to close the gap between atmospheric evaporative demand and precipitation, that still won’t be enough to fully close it. This failure to optimally close the water budget is “The Deficit.” We can express it as plant stress (often seen in the summer months), austerity measures in water resources planning, and other adverse impacts. This is represented by the orange-shaded areas in the budget plot."),
-                    
-                    HTML("<span style='color: #00EE00;font-weight: bold;'>Recharge</span>"),
-                    p("Once atmospheric demand (Potential Evapotranspiration) exceeds inbound water (Precipitation), we can “pay back” the water extracted from the soil reserves. This excess is “Recharge” and is shown as the green-shaded area in the budget chart."),
-                    
-                    HTML("<span style='color: #1E90FF;font-weight: bold;'>Surplus</span>"),
-                    p("Once the recharge is paid off and the soil water storage reaches its maximum capacity, any precipitation within a month that exceeds the Potential Evapotranspiration is presented as excess “Surplus” (the blue-shaded area). In the classical Thornthwaite-Mather budget scheme, this water is flushed from the system, much like streamflow or runoff is removed from a watershed or landscape area unit. Hypothetically, a user could send this water into a supplementary storage (e.g., groundwater or a protected reservoir) or route a fraction of it through a simple routing model."),
-                    
-                    HTML("<span style='color: #009999;font-weight: bold;'>Snowpack</span>"),
-                    p("Yet another reservoir that can persist for months, Snowpack (shown in our budget plot as the light blue shading), can be added to the budget scheme. Here, Precipitation when temperatures are below a given threshold (e.g., near freezing) is not subject to evaporation or loss through Surplus until temperatures rise above that threshold, at which point the “meltwater” can be partitioned latently into Recharge or Surplus."),
-                    
-                    
-    ),
-    br(),
-    
+    min_height = "500px"
+  ),
+  #br(),  
+  
+  card(
+    card_header("Download Full Budget Period"),
+    card_body(
+      downloadButton(outputId = 'downloadData', 
+                     label    = "Download to CSV"),
+      p("Units in mm for water, °C for Temperatures"),
       
-    card(
-      card_header("Citations & References"),
+    ),
+    min_height = "170px"
+  ),
+  #br(),
+  
+  card(
+    card_header("About This Dislay"),
+    card_body(
+      p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool.  A 'deep dive' on how Thornthwaite-Mather Budgters work is below. "),
+      p("The data driving this application is the NOAA Monthly U.S. Climate Divisional Database (NClimDiv) which provides quality-checked past climate data aggregated to regional state climate divisions."),
+      p("To use, the user can select the State and then the Climate Division (a state climate divsion map will be displayed for reference. "),
+      p("From there, you can provide a start and end date plot, and if you wish, change the local default maximuim soil storage."),
+      p("The results can be viewed in the accompanying graph for the selected dates and the table can be downloaded as a comma-delimited file for the whole time series."),
+      p("The script behind this page uses the R 'ClimClass' Package"),
+    ),
+    min_height = "200px"
+  ),
+  #br(),  
+  
+  card(
+    card_header("About Thornthwaite-Mather Budgets"),
       card_body(
-        markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The Water Balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
-        markdown("Emanuele Eccel's R ClimClass Package. [https://CRAN.R-project.org/package=ClimClass](https://CRAN.R-project.org/package=ClimClass)."),
-        ),
+        p("The Thornthwaite-Mather Budget (Thornthwaite and Mather, 1955) is a simple water-accounting scheme that requires only minimal input data (monthly mean temperature and monthly total precipitation).  The budget can be presented as a ledger-style table or, more often, as the line/bar/area graphic shown in the topmost figure above.  "),
+         
+        p("Its components are as follows (all units here are in depth of water, in our case mm of water)."),
+         
+        HTML("<span style='color: #008000;font-weight: bold;'>Precipitation</span>"),
+        p("As with all budgets, we have an income stream. Here, it is the total monthly precipitation. This data typically comes directly from observed values. In the budget graphic above, it is represented by the solid green line (a reference dashed line is available for the future climate scenarios to show the historical baseline)."),
+         
+        HTML("<span style='color: #880000;font-weight: bold;'>Potential Evapotranspiration</span>"),
+        p("This represents the atmospheric demand for your available water. It may exceed the amount actually available in your water budget for that month. Potential Evapotranspiration can be calculated in several ways, but here it is a function of monthly and annual temperatures and latitude. Like precipitation, this is represented by a solid line in our Thornthwaite-Mather budget plots, this time in blue. And again, a historical reference line for the future climate plots is included as the dashed line."),
+         
+        HTML("<span style='color: #BA8E23;font-weight: bold;'>Evapotranspiration</span>"),
+        p("If there is sufficient water from precipitation, the actual amount of evapotranspiration equals Potential Evaporation. But when Precipitation (supply) is outpaced by Potential Evapotranspiration (atmospheric demand), the difference is drawn from the landscape's water storage. The wetter the soil (the more storage), the easier it is to extract water to offset our budgetary imbalance. As the soil dries, resistance to extracting water from the soil increases. In our budget figure, evapotranspiration is shown as the yellow-shaded area. The actual storage amount in the model can be seen in the figure comparing the budgets across the different scenarios, but it is typically not explicitly shown in the classic Thornthwaite-Mather budget plots."),
+         
+        HTML("<span style='color: #FF800D;font-weight: bold;'>Deficit</span>"),
+        p("Even with evaporation tapping the soil as a supplemental source to close the gap between atmospheric evaporative demand and precipitation, that still won’t be enough to fully close it. This failure to optimally close the water budget is “The Deficit.” We can express it as plant stress (often seen in the summer months), austerity measures in water resources planning, and other adverse impacts. This is represented by the orange-shaded areas in the budget plot."),
+         
+        HTML("<span style='color: #00EE00;font-weight: bold;'>Recharge</span>"),
+        p("Once atmospheric demand (Potential Evapotranspiration) exceeds inbound water (Precipitation), we can “pay back” the water extracted from the soil reserves. This excess is “Recharge” and is shown as the green-shaded area in the budget chart."),
+         
+        HTML("<span style='color: #1E90FF;font-weight: bold;'>Surplus</span>"),
+        p("Once the recharge is paid off and the soil water storage reaches its maximum capacity, any precipitation within a month that exceeds the Potential Evapotranspiration is presented as excess “Surplus” (the blue-shaded area). In the classical Thornthwaite-Mather budget scheme, this water is flushed from the system, much like streamflow or runoff is removed from a watershed or landscape area unit. Hypothetically, a user could send this water into a supplementary storage (e.g., groundwater or a protected reservoir) or route a fraction of it through a simple routing model."),
+         
+        HTML("<span style='color: #009999;font-weight: bold;'>Snowpack</span>"),
+        p("Yet another reservoir that can persist for months, Snowpack (shown in our budget plot as the light blue shading), can be added to the budget scheme. Here, Precipitation when temperatures are below a given threshold (e.g., near freezing) is not subject to evaporation or loss through Surplus until temperatures rise above that threshold, at which point the “meltwater” can be partitioned latently into Recharge or Surplus."),
       ),
-    
-    
-    ),  # mainPanel Pannel
-  ),  # Sidebar Layout
-)   # fluid page
+    min_height = "500px"
+  ),
+  
+  card(
+    card_header("Citations & References"),
+    card_body(
+      markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The Water Balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
+      markdown("Emanuele Eccel's R ClimClass Package. [https://CRAN.R-project.org/package=ClimClass](https://CRAN.R-project.org/package=ClimClass)."),
+    ),
+    min_height = "200px"
+  ),  
+  
+  
+  style = "overflow-y: auto;",
+  title = "NCEI Climate Zone Water Budgets",
+  lang  = "en",
+  
+ 
+)   # page_sidebar page
       
     
 

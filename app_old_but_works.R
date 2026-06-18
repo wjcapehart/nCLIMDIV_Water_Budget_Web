@@ -103,10 +103,7 @@ ui = fluidPage(
   
   titlePanel("NCEI Climate Zone Water Budgets"),  
 
-  
-    
-  #titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
-  
+
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     
@@ -173,10 +170,8 @@ ui = fluidPage(
       br(),
       
       card(
-      
         card_header("Download Full Budget Period"),
         downloadButton('downloadData', 'Download'),
- 
       ),
       br(),
       
