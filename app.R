@@ -101,17 +101,18 @@ state_number = state_number_init
 ui = fluidPage(
   
   
-  title = "NCEI Climate Zone Water Budgets",  
+  titlePanel("NCEI Climate Zone Water Budgets"),  
 
   
     
-  titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
+  #titlePanel(title = "NCEI Climate Zone Water Budgets"),   # Application title
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
-    sidebarPanel = sidebarPanel(
+    
+    sidebarPanel(
       
-      h4("User Controls"),
+      title = "User Controls",
       
       selectInput(inputId  = "selected_target_state_name",
                   label    = "US State",
@@ -150,13 +151,10 @@ ui = fluidPage(
       h5("State Climate Division Map"),
       
       imageOutput(outputId = "state_division_map")
-    ),
+      
+    ),  # Sidebar Pannel
+
     
-    
-    
-    
-    
-    # Show a plot of the generated distribution
     mainPanel = mainPanel(
       
       card(
@@ -186,13 +184,14 @@ ui = fluidPage(
     
     card(
       card_header("About This Dislay"),
-      
-      p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool.  A 'deep dive' on how Thornthwaite-Mather Budgters work is below. "),
-      p("The data driving this application is the NOAA Monthly U.S. Climate Divisional Database (NClimDiv) which provides quality-checked past climate data aggregated to regional state climate divisions."),
-      p("To use, the user can select the State and then the Climate Division (a state climate divsion map will be displayed for reference. "),
-      p("From there, you can provide a start and end date plot, and if you wish, change the local default maximuim soil storage."),
-      p("The results can be viewed in the accompanying graph for the selected dates and the table can be downloaded as a comma-delimited file for the whole time series."),
-      p("The script behind this page uses the R 'ClimClass' Package"),
+        card_body(
+          p("This web application allows you to create a 'Thornthwaite-Mather Water Budget,' a water resource accounting tool.  A 'deep dive' on how Thornthwaite-Mather Budgters work is below. "),
+          p("The data driving this application is the NOAA Monthly U.S. Climate Divisional Database (NClimDiv) which provides quality-checked past climate data aggregated to regional state climate divisions."),
+          p("To use, the user can select the State and then the Climate Division (a state climate divsion map will be displayed for reference. "),
+          p("From there, you can provide a start and end date plot, and if you wish, change the local default maximuim soil storage."),
+          p("The results can be viewed in the accompanying graph for the selected dates and the table can be downloaded as a comma-delimited file for the whole time series."),
+          p("The script behind this page uses the R 'ClimClass' Package"),
+      ),
     ),
     br(),
     
@@ -230,15 +229,19 @@ ui = fluidPage(
       
     card(
       card_header("Citations & References"),
-      markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The Water Balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
-      markdown("Emanuele Eccel's R ClimClass Package. [https://CRAN.R-project.org/package=ClimClass](https://CRAN.R-project.org/package=ClimClass)."),
-      )
+      card_body(
+        markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The Water Balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
+        markdown("Emanuele Eccel's R ClimClass Package. [https://CRAN.R-project.org/package=ClimClass](https://CRAN.R-project.org/package=ClimClass)."),
+        ),
+      ),
     
+    
+    ),  # mainPanel Pannel
+  ),  # Sidebar Layout
+)   # fluid page
       
-    )
-      
-    )
-  )
+    
+
 
 
 
@@ -654,12 +657,6 @@ server = function(input,
                          Recharge,
                          Snowpack,
                          Evaporation) 
-
-        
-    print("Unique Variables")
-    print(unique(subset_bars$Variable))
-    
-    print("create as factor")
     
     subset_bars$Variable = ordered(subset_bars$Variable,
                                      levels = c("Surplus", 
@@ -667,10 +664,7 @@ server = function(input,
                                                 "Snowpack", 
                                                 "Deficit", 
                                                 "Evaporation"))
-    
-    print("Resulting levels")
-    print(levels(subset_bars$Variable))    
-    
+     
     ggplot(data = subset_lines) +
       
       theme_bw() +
