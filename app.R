@@ -224,7 +224,7 @@ ui = page_sidebar(
   card(
     card_header("Citations & References"),
     card_body(
-      markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The Water Balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
+      markdown("Thornthwaite, C.W., and J.R. Mather, 1955: The water balance. *Publications in Climatology*, **8**(1), Laboratory of Climatology. Drexel Institute of Technology, Centerton, NJ."),
       markdown("Emanuele Eccel's R ClimClass Package. [https://CRAN.R-project.org/package=ClimClass](https://CRAN.R-project.org/package=ClimClass)."),
     ),
     min_height = "150px"
